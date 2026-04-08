@@ -20,7 +20,7 @@
       --text-muted: #5a5a5a;
       --text-light: #888;
       --border: #d8d0be;
-      --white: #ffffff;
+      --white: #fff;
       --red: #c0392b;
       --green: #27ae60;
     }
@@ -37,8 +37,10 @@
       color: var(--text);
       font-size: 16px;
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
+    /* ─── TOPBAR ─── */
     #topbar {
       background: var(--navy);
       color: #aab8d4;
@@ -51,41 +53,45 @@
     #topbar .inner {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 20px;
       display: flex;
-      gap: 24px;
+      gap: 20px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
+    /* ─── HEADER ─── */
     #header {
       background: var(--white);
       border-bottom: 2px solid var(--navy);
       position: sticky;
       top: 0;
-      z-index: 200;
+      z-index: 300;
       box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
     }
 
     #header .inner {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 72px;
+      height: 68px;
+      gap: 12px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .logo-badge {
-      width: 46px;
-      height: 46px;
+      width: 42px;
+      height: 42px;
       background: var(--navy);
       border-radius: 4px;
       display: flex;
@@ -93,14 +99,14 @@
       justify-content: center;
       font-family: 'Playfair Display', serif;
       color: var(--gold);
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: .05em;
     }
 
     .logo-text .main {
       display: block;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--navy);
       line-height: 1.1;
@@ -109,7 +115,7 @@
 
     .logo-text .sub {
       display: block;
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
       letter-spacing: .08em;
       text-transform: uppercase;
@@ -119,7 +125,7 @@
     nav {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     nav a {
@@ -128,13 +134,13 @@
       font-weight: 500;
       color: var(--text);
       text-decoration: none;
-      padding: 8px 14px;
+      padding: 7px 12px;
       border-radius: 4px;
-      letter-spacing: .02em;
       transition: all .15s;
       cursor: pointer;
       border: none;
       background: none;
+      white-space: nowrap;
     }
 
     nav a:hover {
@@ -153,22 +159,142 @@
       color: var(--gold-light) !important;
       border-radius: 4px !important;
       border-bottom: none !important;
-      padding: 7px 16px;
+      padding: 7px 14px;
     }
 
     nav .admin-btn:hover {
       background: var(--navy-light) !important;
     }
 
-    #hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #243a6b 60%, #1a3558 100%);
-      color: white;
-      padding: 64px 32px 56px;
+    /* hamburger */
+    .ham-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .ham-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: all .25s;
+    }
+
+    .ham-btn.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .ham-btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .ham-btn.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: white;
+      border-bottom: 2px solid var(--navy);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+      z-index: 299;
+      padding: 12px 20px 16px;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      text-align: left;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      background: var(--cream);
+      color: var(--navy);
+    }
+
+    .mobile-menu a.active {
+      color: var(--gold);
+    }
+
+    .mobile-menu .mob-admin {
+      background: var(--navy);
+      color: var(--gold-light) !important;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    /* ─── HERO SLIDER ─── */
+    #hero-section {
       position: relative;
       overflow: hidden;
     }
 
-    #hero::before {
+    .hero-slider {
+      position: relative;
+      height: 480px;
+      overflow: hidden;
+    }
+
+    @media(max-width:768px) {
+      .hero-slider {
+        height: auto;
+        min-height: 320px;
+      }
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .7s ease;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      position: relative;
+    }
+
+    .hero-slide.active~.hero-slide {
+      position: absolute;
+    }
+
+    /* Text-only slide (original) */
+    .hs-text {
+      background: linear-gradient(135deg, var(--navy) 0%, #243a6b 60%, #1a3558 100%);
+      color: white;
+      padding: 60px 20px 50px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hs-text::before {
       content: '';
       position: absolute;
       top: -80px;
@@ -179,58 +305,452 @@
       pointer-events: none;
     }
 
-    #hero .inner {
+    .hs-text .inner {
       max-width: 1100px;
       margin: 0 auto;
     }
 
-    #hero .label {
+    .hs-text .slide-label {
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: .15em;
       text-transform: uppercase;
       color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+
+    .hs-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 680px;
       margin-bottom: 18px;
     }
 
-    #hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 1.2;
-      max-width: 700px;
-      margin-bottom: 20px;
-    }
-
-    #hero p {
+    .hs-text p {
       color: #b0bcd8;
-      font-size: 17px;
-      max-width: 620px;
-      margin-bottom: 32px;
+      font-size: 16px;
+      max-width: 580px;
+      margin-bottom: 28px;
       font-weight: 300;
     }
 
-    #hero .meta {
+    .hs-text .meta {
       display: flex;
-      gap: 24px;
+      gap: 20px;
       flex-wrap: wrap;
     }
 
-    #hero .meta-item {
+    .hs-text .meta-item {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       color: #8fa5c8;
     }
 
-    #hero .meta-item strong {
+    .hs-text .meta-item strong {
       color: white;
       font-weight: 500;
     }
 
+    /* Image slide */
+    .hs-img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hs-img-overlay {
+      background: linear-gradient(to top, rgba(10, 20, 50, .85) 0%, rgba(10, 20, 50, .3) 60%, transparent 100%);
+      padding: 36px 20px 32px;
+      width: 100%;
+    }
+
+    .hs-img-overlay .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hs-img-overlay h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .hs-img-overlay p {
+      color: #c0cde0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      max-width: 500px;
+    }
+
+    /* Slider controls */
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(255, 255, 255, .18);
+      border: 1px solid rgba(255, 255, 255, .3);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+      backdrop-filter: blur(4px);
+    }
+
+    .slider-btn:hover {
+      background: rgba(255, 255, 255, .32);
+    }
+
+    .slider-prev {
+      left: 16px;
+    }
+
+    .slider-next {
+      right: 16px;
+    }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .4);
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .dot.active {
+      background: white;
+      width: 22px;
+      border-radius: 4px;
+    }
+
+    /* Slide counter */
+    .slide-counter {
+      position: absolute;
+      top: 16px;
+      right: 56px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: rgba(255, 255, 255, .6);
+      z-index: 10;
+    }
+
+    /* ─── HOME INFO STRIP ─── */
+    .home-strip {
+      background: var(--navy-light);
+      padding: 18px 20px;
+    }
+
+    .home-strip .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .strip-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: #8fa5c8;
+    }
+
+    .strip-item .si-label {
+      color: rgba(255, 255, 255, .5);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      display: block;
+    }
+
+    .strip-item .si-val {
+      color: white;
+      font-weight: 500;
+      display: block;
+    }
+
+    .strip-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    /* ─── HOME SECTIONS ─── */
+    .home-section {
+      padding: 56px 20px;
+    }
+
+    .home-section .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      margin-bottom: 36px;
+    }
+
+    .section-head h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .section-head p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .section-head .view-all {
+      float: right;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--gold);
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Keynote grid */
+    .keynote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .keynote-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .kc-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold-light);
+      flex-shrink: 0;
+    }
+
+    .kc-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .kc-inst {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .kc-topic {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* Timeline */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0;
+      position: relative;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: 119px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .tl-date {
+      padding: 16px 20px 16px 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      text-align: right;
+      line-height: 1.3;
+    }
+
+    .tl-dot {
+      position: absolute;
+      left: 112px;
+      top: 20px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid var(--cream);
+      z-index: 1;
+    }
+
+    .tl-dot.done {
+      background: var(--gold);
+    }
+
+    .tl-content {
+      padding: 14px 0 14px 28px;
+    }
+
+    .tl-content h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+
+    .tl-content p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ISVE Sessions */
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .session-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+    }
+
+    .sc-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .sc-chair {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Organizers */
+    .org-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .org-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .org-card h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .org-card p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Publication boxes */
+    .pub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .pub-card {
+      background: var(--navy);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .pub-card h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+    }
+
+    .pub-card p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: #8fa5c8;
+      line-height: 1.6;
+    }
+
+    /* ─── PAGE LAYOUT ─── */
     .page {
       display: none;
     }
@@ -242,10 +762,10 @@
     .page-body {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 48px 32px;
+      padding: 40px 20px;
       display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 48px;
+      grid-template-columns: 1fr 280px;
+      gap: 40px;
     }
 
     .page-body.full {
@@ -256,19 +776,19 @@
       background: white;
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 24px;
-      margin-bottom: 24px;
+      padding: 22px;
+      margin-bottom: 20px;
     }
 
     .sidebar-widget h3 {
       font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 16px;
-      padding-bottom: 12px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--border);
     }
 
@@ -277,7 +797,7 @@
     }
 
     .sidebar-widget ul li {
-      padding: 6px 0;
+      padding: 5px 0;
       border-bottom: 1px solid var(--cream-dark);
     }
 
@@ -288,7 +808,7 @@
     .sidebar-widget ul li a {
       color: var(--navy);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
       font-family: 'DM Sans', sans-serif;
       cursor: pointer;
     }
@@ -297,7 +817,7 @@
       color: var(--gold);
     }
 
-    /* rendered content styles */
+    /* ─── RENDERED CONTENT ─── */
     .rc h1,
     .rc h2,
     .rc h3 {
@@ -328,13 +848,24 @@
       border-radius: 6px;
       margin: 12px 0;
       display: block;
+      height: auto;
     }
 
-    .rc iframe {
-      max-width: 100%;
-      margin: 12px 0;
+    .rc .yt-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
       border-radius: 6px;
-      display: block;
+      margin: 12px 0;
+    }
+
+    .rc .yt-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
 
     .rc ul,
@@ -373,16 +904,16 @@
       color: var(--navy);
     }
 
-    /* events */
+    /* ─── EVENTS ─── */
     .ann-header {
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
     .ann-header h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 30px;
+      font-size: 28px;
       color: var(--navy);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .ann-header p {
@@ -396,18 +927,19 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
-      margin-bottom: 24px;
-      transition: box-shadow .2s;
+      margin-bottom: 20px;
+      transition: box-shadow .2s, transform .15s;
       cursor: pointer;
     }
 
     .event-card:hover {
       box-shadow: 0 4px 20px rgba(0, 0, 0, .1);
+      transform: translateY(-1px);
     }
 
     .event-card-inner {
       display: grid;
-      grid-template-columns: 80px 1fr;
+      grid-template-columns: 72px 1fr;
     }
 
     .ev-date {
@@ -417,13 +949,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px 10px;
-      min-height: 120px;
+      padding: 16px 8px;
+      min-height: 110px;
     }
 
     .ev-date .day {
       font-family: 'Playfair Display', serif;
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
       line-height: 1;
       color: var(--gold-light);
@@ -431,37 +963,38 @@
 
     .ev-date .mon {
       font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: .1em;
       text-transform: uppercase;
       color: #8fa5c8;
-      margin-top: 4px;
+      margin-top: 3px;
     }
 
     .ev-date .yr {
       font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
+      font-size: 10px;
       color: #6b85a8;
       margin-top: 2px;
     }
 
     .ev-body {
-      padding: 20px 24px;
+      padding: 16px 20px;
     }
 
     .ev-body h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 20px;
+      font-size: 18px;
       color: var(--navy);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      line-height: 1.3;
     }
 
     .ev-body .exc {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
       line-height: 1.6;
       font-family: 'DM Sans', sans-serif;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -470,7 +1003,7 @@
 
     .ev-body .tags {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
@@ -479,7 +1012,7 @@
       color: var(--navy);
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      padding: 3px 10px;
+      padding: 2px 9px;
       border-radius: 20px;
       border: 1px solid var(--border);
     }
@@ -492,7 +1025,7 @@
       font-size: 13px;
       color: var(--text-muted);
       cursor: pointer;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       border: none;
       background: none;
       padding: 0;
@@ -504,16 +1037,16 @@
 
     .ev-det-title {
       font-family: 'Playfair Display', serif;
-      font-size: 34px;
+      font-size: 30px;
       color: var(--navy);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       line-height: 1.25;
     }
 
     .ev-det-meta {
       display: flex;
-      gap: 14px;
-      margin-bottom: 28px;
+      gap: 12px;
+      margin-bottom: 24px;
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       color: var(--text-muted);
@@ -521,11 +1054,11 @@
       align-items: center;
     }
 
-    /* footer */
+    /* ─── FOOTER ─── */
     #footer {
       background: var(--navy);
       color: #8fa5c8;
-      padding: 40px 32px 24px;
+      padding: 40px 20px 24px;
       margin-top: 48px;
     }
 
@@ -579,18 +1112,20 @@
       font-family: 'DM Sans', sans-serif;
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    /* admin */
+    /* ─── ADMIN ─── */
     .admin-layout {
       display: grid;
-      grid-template-columns: 220px 1fr;
+      grid-template-columns: 210px 1fr;
       min-height: calc(100vh - 110px);
     }
 
     .admin-sidebar {
       background: var(--navy);
-      padding: 24px 0;
+      padding: 20px 0;
     }
 
     .a-sec {
@@ -600,15 +1135,15 @@
       letter-spacing: .12em;
       text-transform: uppercase;
       color: #5a7aaa;
-      padding: 0 24px;
-      margin: 20px 0 6px;
+      padding: 0 20px;
+      margin: 18px 0 5px;
     }
 
     .a-nav {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 10px 24px;
+      gap: 9px;
+      padding: 9px 20px;
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       color: #8fa5c8;
@@ -632,34 +1167,34 @@
     }
 
     .a-nav svg {
-      width: 15px;
-      height: 15px;
+      width: 14px;
+      height: 14px;
       flex-shrink: 0;
     }
 
     .admin-main {
       background: #f0ede6;
-      padding: 36px;
+      padding: 28px;
     }
 
     .a-card {
       background: white;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 28px;
-      margin-bottom: 24px;
+      padding: 24px;
+      margin-bottom: 20px;
     }
 
     .a-hdr {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .a-hdr h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 22px;
+      font-size: 20px;
       color: var(--navy);
     }
 
@@ -667,14 +1202,14 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       font-weight: 500;
-      padding: 9px 20px;
+      padding: 8px 18px;
       border-radius: 5px;
       cursor: pointer;
       transition: all .15s;
       border: none;
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
 
     .btn-primary {
@@ -711,11 +1246,13 @@
       border-radius: 8px;
       border: 1px solid var(--border);
       overflow: hidden;
+      overflow-x: auto;
     }
 
     .a-tbl {
       width: 100%;
       border-collapse: collapse;
+      min-width: 500px;
     }
 
     .a-tbl th {
@@ -726,13 +1263,14 @@
       letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--text-muted);
-      padding: 12px 16px;
+      padding: 11px 14px;
       text-align: left;
       border-bottom: 1px solid var(--border);
+      white-space: nowrap;
     }
 
     .a-tbl td {
-      padding: 13px 16px;
+      padding: 12px 14px;
       border-bottom: 1px solid var(--cream-dark);
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
@@ -748,7 +1286,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
       font-weight: 600;
-      padding: 3px 10px;
+      padding: 3px 9px;
       border-radius: 20px;
     }
 
@@ -762,12 +1300,8 @@
       color: var(--text-muted);
     }
 
-    .fl {
-      font-family: 'DM Sans', sans-serif;
-    }
-
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .form-label {
@@ -778,14 +1312,14 @@
       letter-spacing: .06em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 7px;
+      margin-bottom: 6px;
     }
 
     .form-input {
       width: 100%;
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 10px 14px;
+      padding: 9px 12px;
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       color: var(--text);
@@ -801,7 +1335,7 @@
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
     }
 
     /* login */
@@ -810,14 +1344,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 20px;
     }
 
     .login-card {
       background: white;
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 48px 40px;
-      width: 360px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 360px;
     }
 
     .login-card h2 {
@@ -831,7 +1367,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       color: var(--text-muted);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .login-err {
@@ -841,7 +1377,7 @@
       font-size: 13px;
       padding: 10px 14px;
       border-radius: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       display: none;
     }
 
@@ -849,7 +1385,7 @@
       display: block;
     }
 
-    /* full-page editor */
+    /* ─── FULL-PAGE EDITOR ─── */
     #page-editor {
       background: #f0ede6;
       min-height: 100vh;
@@ -857,14 +1393,14 @@
 
     .ep-header {
       background: var(--navy);
-      padding: 14px 32px;
+      padding: 13px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 400;
     }
 
     .ep-back {
@@ -874,9 +1410,10 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       background: none;
       border: none;
+      white-space: nowrap;
     }
 
     .ep-back:hover {
@@ -885,32 +1422,36 @@
 
     .ep-title {
       font-family: 'Playfair Display', serif;
-      font-size: 18px;
+      font-size: 17px;
       color: white;
       flex: 1;
       text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .ep-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
+      flex-shrink: 0;
     }
 
     .ep-body {
-      /* max-width: 1040px; */
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 32px;
+      padding: 24px 20px;
     }
 
     .ep-meta {
       background: white;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 20px 24px;
-      margin-bottom: 20px;
+      padding: 18px 20px;
+      margin-bottom: 18px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
+      gap: 14px;
     }
 
     .ep-meta .sp2 {
@@ -924,15 +1465,16 @@
       overflow: hidden;
     }
 
-    /* ===== RICH TEXT EDITOR ===== */
+    /* ─── RICH TEXT EDITOR ─── */
     .tb {
       background: var(--cream);
       border-bottom: 1px solid var(--border);
-      padding: 5px 7px;
+      padding: 4px 6px;
       display: flex;
       gap: 1px;
       flex-wrap: wrap;
       align-items: center;
+      position: relative;
     }
 
     .tb-btn {
@@ -952,6 +1494,7 @@
       font-family: 'DM Sans', sans-serif;
       white-space: nowrap;
       transition: background .1s, color .1s;
+      position: relative;
     }
 
     .tb-btn:hover {
@@ -959,16 +1502,11 @@
       color: var(--navy);
     }
 
-    .tb-btn.on {
-      background: var(--navy);
-      color: white;
-    }
-
     .tb-sep {
       width: 1px;
       height: 18px;
       background: var(--border);
-      margin: 0 3px;
+      margin: 0 2px;
       flex-shrink: 0;
     }
 
@@ -986,8 +1524,8 @@
     }
 
     .ed-body {
-      min-height: 400px;
-      padding: 20px 24px;
+      min-height: 380px;
+      padding: 18px 22px;
       outline: none;
       font-family: 'Source Serif 4', serif;
       font-size: 15px;
@@ -1058,33 +1596,56 @@
       border-radius: 4px;
       margin: 8px 0;
       display: block;
+      height: auto;
     }
 
-    .ed-body iframe {
-      max-width: 100%;
-      margin: 8px 0;
-      display: block;
+    .ed-body .yt-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
       border-radius: 6px;
+      margin: 8px 0;
+    }
+
+    .ed-body .yt-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
 
     .ed-body p {
       margin-bottom: 8px;
     }
 
-    /* dropdowns / panels */
-    .drop {
-      position: absolute;
+    /* ─── DROPDOWNS / PANELS ─── */
+    /* All panels use fixed positioning to avoid clipping */
+    .drop,
+    .fpanel {
+      position: fixed;
       background: white;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 12px;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .18);
       z-index: 9999;
       display: none;
     }
 
-    .drop.open {
+    .drop.open,
+    .fpanel.open {
       display: block;
+    }
+
+    .drop {
+      padding: 12px;
+    }
+
+    .fpanel {
+      padding: 16px;
+      min-width: 280px;
     }
 
     .drop-title {
@@ -1097,7 +1658,6 @@
       margin-bottom: 8px;
     }
 
-    /* color picker */
     .cp-swatches {
       display: grid;
       grid-template-columns: repeat(8, 20px);
@@ -1111,6 +1671,7 @@
       border-radius: 3px;
       cursor: pointer;
       border: 1px solid rgba(0, 0, 0, .08);
+      transition: transform .1s;
     }
 
     .cp-swatch:hover {
@@ -1120,12 +1681,12 @@
 
     .cp-custom {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       align-items: center;
     }
 
     .cp-custom input[type=color] {
-      width: 30px;
+      width: 28px;
       height: 26px;
       border: 1px solid var(--border);
       border-radius: 3px;
@@ -1137,14 +1698,13 @@
       flex: 1;
       border: 1px solid var(--border);
       border-radius: 3px;
-      padding: 3px 7px;
+      padding: 3px 6px;
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       outline: none;
-      width: 80px;
+      width: 70px;
     }
 
-    /* table picker */
     .tgrid {
       display: grid;
       grid-template-columns: repeat(8, 22px);
@@ -1158,6 +1718,7 @@
       border-radius: 2px;
       cursor: pointer;
       background: white;
+      transition: all .1s;
     }
 
     .tcell.hl {
@@ -1173,29 +1734,12 @@
       margin-bottom: 7px;
     }
 
-    /* floating insert panels */
-    .fpanel {
-      position: absolute;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, .16);
-      z-index: 9999;
-      display: none;
-      min-width: 280px;
-    }
-
-    .fpanel.open {
-      display: block;
-    }
-
     .fpanel-title {
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       font-weight: 600;
       color: var(--navy);
-      margin-bottom: 12px;
+      margin-bottom: 11px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1208,6 +1752,7 @@
       color: var(--text-light);
       font-size: 15px;
       line-height: 1;
+      padding: 2px;
     }
 
     .fp-inp {
@@ -1218,7 +1763,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       outline: none;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .fp-inp:focus {
@@ -1227,7 +1772,7 @@
 
     .fp-row {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       justify-content: flex-end;
       margin-top: 4px;
     }
@@ -1238,7 +1783,7 @@
       padding: 14px;
       text-align: center;
       cursor: pointer;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       color: var(--text-muted);
@@ -1253,8 +1798,8 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 5px;
-      margin-bottom: 8px;
-      max-height: 140px;
+      margin-bottom: 7px;
+      max-height: 130px;
       overflow-y: auto;
     }
 
@@ -1296,7 +1841,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 11px;
       color: var(--text-light);
-      margin: 6px 0;
+      margin: 5px 0;
       position: relative;
     }
 
@@ -1318,16 +1863,16 @@
       right: 0;
     }
 
-    /* toast */
+    /* ─── TOAST ─── */
     #toast {
       position: fixed;
-      bottom: 28px;
-      right: 28px;
+      bottom: 24px;
+      right: 24px;
       background: var(--navy);
       color: white;
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
-      padding: 12px 20px;
+      padding: 11px 18px;
       border-radius: 8px;
       z-index: 99999;
       transform: translateY(80px);
@@ -1342,7 +1887,8 @@
       opacity: 1;
     }
 
-    @media(max-width:768px) {
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:900px) {
       .page-body {
         grid-template-columns: 1fr;
       }
@@ -1351,21 +1897,134 @@
         grid-template-columns: 1fr;
       }
 
+      .admin-sidebar {
+        display: none;
+      }
+
+      .admin-sidebar.mob-open {
+        display: block;
+      }
+
+      #footer .fg {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-slider {
+        height: 380px;
+      }
+
+      .hs-text h1 {
+        font-size: 32px;
+      }
+
+      .home-strip .inner {
+        gap: 20px;
+      }
+    }
+
+    @media(max-width:640px) {
+      nav {
+        display: none;
+      }
+
+      .ham-btn {
+        display: flex;
+      }
+
+      .logo-text .sub {
+        display: none;
+      }
+
+      .hero-slider {
+        height: auto;
+        min-height: 280px;
+      }
+
+      .hs-text {
+        padding: 40px 16px 36px;
+      }
+
+      .hs-text h1 {
+        font-size: 24px;
+      }
+
+      .hs-text p {
+        font-size: 14px;
+      }
+
+      .hs-img-overlay h2 {
+        font-size: 22px;
+      }
+
       #footer .fg {
         grid-template-columns: 1fr;
       }
 
-      #hero h1 {
-        font-size: 28px;
-      }
-
-      .form-row,
       .ep-meta {
         grid-template-columns: 1fr;
       }
 
       .ep-meta .sp2 {
         grid-column: span 1;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .keynote-grid,
+      .sessions-grid,
+      .org-grid,
+      .pub-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tl-item {
+        grid-template-columns: 90px 1fr;
+      }
+
+      .home-strip .inner {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .strip-divider {
+        display: none;
+      }
+
+      .ep-header {
+        padding: 10px 14px;
+      }
+
+      .ep-title {
+        font-size: 14px;
+      }
+
+      .btn {
+        padding: 7px 14px;
+        font-size: 12px;
+      }
+
+      .a-tbl th,
+      .a-tbl td {
+        padding: 9px 10px;
+        font-size: 12px;
+      }
+    }
+
+    @media(max-width:400px) {
+      .hs-text h1 {
+        font-size: 20px;
+      }
+
+      .tb {
+        padding: 3px 4px;
+      }
+
+      .tb-btn {
+        min-width: 22px;
+        height: 22px;
+        font-size: 11px;
       }
     }
   </style>
@@ -1374,7 +2033,10 @@
 <body>
 
   <div id="topbar">
-    <div class="inner"><span>✉ veam@depocen.org</span><span>☎ (84 24) 39351419</span><span>🕐 8:00AM – 6:00PM</span>
+    <div class="inner">
+      <span>✉ veam@depocen.org</span>
+      <span>☎ (84 24) 39351419</span>
+      <span>🕐 8:00AM – 6:00PM</span>
     </div>
   </div>
 
@@ -1385,49 +2047,330 @@
         <div class="logo-text"><span class="main">VEAM</span><span class="sub">Vietnam Economists Annual Meeting</span>
         </div>
       </div>
-      <div id="main-nav-wrap">
-        <nav>
-          <a onclick="nav('about')" id="nav-about">About Us</a>
-          <a onclick="nav('announcements')" id="nav-ann">Announcements</a>
-          <a onclick="nav('admin')" id="nav-admin" class="admin-btn">⚙ Admin</a>
-        </nav>
-      </div>
+      <nav id="desktop-nav">
+        <a onclick="nav('about')" id="nav-about">About Us</a>
+        <a onclick="nav('registration')" id="nav-reg">Registration</a>
+        <a onclick="nav('submission')" id="nav-sub">Paper Submission</a>
+        <a onclick="nav('announcements')" id="nav-ann">Announcements</a>
+        <a onclick="nav('admin')" id="nav-admin" class="admin-btn">⚙ Admin</a>
+      </nav>
+      <button class="ham-btn" id="ham-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a onclick="nav('about');closeMobileMenu()" id="mnav-about">About Us</a>
+      <a onclick="nav('registration');closeMobileMenu()" id="mnav-reg">Registration</a>
+      <a onclick="nav('submission');closeMobileMenu()" id="mnav-sub">Paper Submission</a>
+      <a onclick="nav('announcements');closeMobileMenu()" id="mnav-ann">Announcements</a>
+      <a onclick="nav('admin');closeMobileMenu()" class="mob-admin">⚙ Admin</a>
     </div>
   </header>
 
+  <!-- ══════════ HERO SLIDER ══════════ -->
   <div id="hero-section">
-    <div id="hero">
-      <div class="inner">
-        <div class="label">17th Annual Conference · 2026</div>
-        <h1>Vietnam Economists Annual Meeting</h1>
-        <p>An annual gathering for economists and social researchers worldwide to present scholarly works and foster
-          academic dialogue.</p>
-        <div class="meta">
-          <div class="meta-item">📅 <span><strong>July 13–14, 2026</strong></span></div>
-          <div class="meta-item">📍 <span><strong>University of Economics – Hue University</strong>, Vietnam</span>
+    <div class="hero-slider" id="hero-slider">
+
+      <!-- Slide 1: main text slide -->
+      <div class="hero-slide active" id="slide-0">
+        <div class="hs-text" style="width:100%;">
+          <div class="inner">
+            <div class="slide-label">17th Annual Conference · 2026</div>
+            <h1>Vietnam Economists Annual Meeting</h1>
+            <p>An annual gathering for economists and social researchers worldwide to present scholarly works and foster
+              academic dialogue.</p>
+            <div class="meta">
+              <div class="meta-item">📅 <span><strong>July 13–14, 2026</strong></span></div>
+              <div class="meta-item">📍 <span><strong>Hue University of Economics</strong>, Vietnam</span></div>
+              <div class="meta-item">📝 <span>Submission deadline: <strong>May 31, 2026</strong></span></div>
+            </div>
           </div>
-          <div class="meta-item">📝 <span>Submission deadline: <strong>May 31, 2026</strong></span></div>
+        </div>
+      </div>
+
+      <!-- Slide 2: keynote image slide -->
+      <div class="hero-slide" id="slide-1">
+        <div class="hs-img"
+          style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&auto=format&fit=crop&q=80'),linear-gradient(135deg,#0d1b35 0%,#1a3060 40%,#0a1628 100%);width:100%;">
+          <div class="hs-img-overlay" style="width:100%;">
+            <div class="inner">
+              <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+                <span
+                  style="background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;">Keynote</span>
+              </div>
+              <h2>World-Class Keynote Speakers</h2>
+              <p>Prof. Philippe Aghion · Prof. Thi Kim Cuong PHAM · Prof. Maria-Giuseppina BRUNA</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: call for papers -->
+      <div class="hero-slide" id="slide-2">
+        <div class="hs-img"
+          style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&auto=format&fit=crop&q=80'),linear-gradient(135deg,#0d1b35 0%,#1a3060 40%,#0a1628 100%);width:100%;">
+          <div class="hs-img-overlay" style="width:100%;">
+            <div class="inner">
+              <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <span
+                  style="background:#e74c3c;color:white;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;">Deadline
+                  Approaching</span>
+              </div>
+              <h2>Call for Papers – Submit by May 31, 2026</h2>
+              <p>All papers must be submitted in English. Decision on acceptance notified by June 15, 2026.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 4: publication -->
+      <div class="hero-slide" id="slide-3">
+        <div class="hs-img"
+          style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&auto=format&fit=crop&q=80'),linear-gradient(135deg,#0d1b35 0%,#1a3060 40%,#0a1628 100%);width:100%;">
+          <div class="hs-img-overlay" style="width:100%;">
+            <div class="inner">
+              <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <span
+                  style="background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;">Publication</span>
+              </div>
+              <h2>ISVE–VEAM Special Issue 2026</h2>
+              <p>Selected papers published in Revue d'Économie du Développement and other leading journals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="slider-btn slider-prev" onclick="slideTo(currentSlide-1)">&#8249;</button>
+      <button class="slider-btn slider-next" onclick="slideTo(currentSlide+1)">&#8250;</button>
+      <div class="slider-dots" id="slider-dots"></div>
+      <div class="slide-counter" id="slide-counter">1 / 4</div>
+    </div>
+
+    <!-- Info strip below hero -->
+    <div class="home-strip">
+      <div class="inner">
+        <div class="strip-item"><span class="si-label">Conference Date</span><span class="si-val">July 13–14,
+            2026</span></div>
+        <div class="strip-divider"></div>
+        <div class="strip-item"><span class="si-label">Location</span><span class="si-val">Hue, Vietnam</span></div>
+        <div class="strip-divider"></div>
+        <div class="strip-item"><span class="si-label">Paper Deadline</span><span class="si-val">May 31, 2026</span>
+        </div>
+        <div class="strip-divider"></div>
+        <div class="strip-item"><span class="si-label">Notification</span><span class="si-val">June 15, 2026</span>
+        </div>
+        <div class="strip-divider"></div>
+        <div class="strip-item"><span class="si-label">Registration</span><span class="si-val">June 16–30, 2026</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ABOUT -->
+  <!-- ══════════ HOME PAGE CONTENT ══════════ -->
+  <div id="page-home" class="page active">
+    <!-- Keynote Speakers -->
+    <div class="home-section" style="background:white;border-bottom:1px solid var(--border);">
+      <div class="inner">
+        <div class="section-head" style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <h2>Keynote Speakers</h2>
+            <p>Confirmed speakers for VEAM 2026</p>
+          </div>
+        </div>
+        <div class="keynote-grid">
+          <div class="keynote-card">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="kc-avatar">PA</div>
+              <div>
+                <div class="kc-name">Prof. Philippe Aghion</div>
+                <div class="kc-inst">London School of Economics and Political Science</div>
+                <div class="kc-topic">Innovation &amp; Growth Economics</div>
+              </div>
+            </div>
+          </div>
+          <div class="keynote-card">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="kc-avatar">TKP</div>
+              <div>
+                <div class="kc-name">Prof. Thi Kim Cuong PHAM</div>
+                <div class="kc-inst">University of Paris Nanterre</div>
+                <div class="kc-topic">Development Economics</div>
+              </div>
+            </div>
+          </div>
+          <div class="keynote-card">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="kc-avatar">MB</div>
+              <div>
+                <div class="kc-name">Prof. Maria-Giuseppina BRUNA</div>
+                <div class="kc-inst">IPAG Business School, France</div>
+                <div class="kc-topic">Management &amp; Diversity</div>
+              </div>
+            </div>
+          </div>
+          <div class="keynote-card" style="display:flex;align-items:center;justify-content:center;border-style:dashed;">
+            <div style="text-align:center;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:13px;">
+              TBA<br><span style="font-size:11px;">To be announced</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conference Timeline + ISVE Sessions split -->
+    <div class="home-section" style="background:var(--cream);">
+      <div class="inner" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+        <div>
+          <div class="section-head">
+            <h2>Important Dates</h2>
+            <p>Key deadlines for VEAM 2026</p>
+          </div>
+          <div class="timeline">
+            <div class="tl-item">
+              <div class="tl-date">May 31<br>2026</div>
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <h4>Paper Submission Deadline</h4>
+                <p>5:00 PM Hanoi time (GMT+7)</p>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Jun 15<br>2026</div>
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <h4>Acceptance Notification</h4>
+                <p>Authors notified by email</p>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Jun 16<br>2026</div>
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <h4>Registration Opens</h4>
+                <p>Early bird rates available</p>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Jun 30<br>2026</div>
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <h4>Registration Closes</h4>
+                <p>Final deadline for all participants</p>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-date">Jul 13–14<br>2026</div>
+              <div class="tl-dot done"></div>
+              <div class="tl-content">
+                <h4>Main Conference</h4>
+                <p>Hue University of Economics, Vietnam</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="section-head">
+            <h2>ISVE Special Sessions</h2>
+            <p>International Society of Vietnam Economists</p>
+          </div>
+          <div class="sessions-grid" style="grid-template-columns:1fr;">
+            <div class="session-card">
+              <div class="sc-title">Behavioral Economics and Environment</div>
+              <div class="sc-chair">Chair: Khanh-Nam Pham, UEH, Vietnam</div>
+            </div>
+            <div class="session-card">
+              <div class="sc-title">Development Economics</div>
+              <div class="sc-chair">Chair: Quang Thanh Le, University of Wollongong, Australia</div>
+            </div>
+            <div class="session-card">
+              <div class="sc-title">Theoretical Economics</div>
+              <div class="sc-chair">Chair: Ngoc-Sang Pham, EM Normandie, France</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Publication Opportunities -->
+    <div class="home-section"
+      style="background:white;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+      <div class="inner">
+        <div class="section-head">
+          <h2>Publication Opportunities</h2>
+          <p>Selected papers from VEAM 2026 will be considered for publication</p>
+        </div>
+        <div class="pub-grid">
+          <div class="pub-card">
+            <h4>Revue d'Économie du Développement</h4>
+            <p>ISVE–VEAM Special Issue featuring selected conference papers</p>
+          </div>
+          <div class="pub-card">
+            <h4>Journal of International Economics and Management</h4>
+            <p>Foreign Trade University flagship journal</p>
+          </div>
+          <div class="pub-card">
+            <h4>Review of Development Economics</h4>
+            <p>John Wiley &amp; Sons Ltd. peer-reviewed journal</p>
+          </div>
+          <div class="pub-card">
+            <h4>Journal of Asian Business and Economic Studies</h4>
+            <p>Emerald Publishing international journal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Organizing Universities -->
+    <div class="home-section">
+      <div class="inner">
+        <div class="section-head">
+          <h2>Organizing Institutions</h2>
+          <p>VEAM 2026 is organized by a consortium of universities and research centers</p>
+        </div>
+        <div class="org-grid">
+          <div class="org-card">
+            <h4>University of Economics – Hue University</h4>
+            <p>Host Institution</p>
+          </div>
+          <div class="org-card">
+            <h4>Foreign Trade University</h4>
+            <p>Co-organizer</p>
+          </div>
+          <div class="org-card">
+            <h4>DEPOCEN</h4>
+            <p>Development and Policies Research Center</p>
+          </div>
+          <div class="org-card">
+            <h4>CNRS France</h4>
+            <p>French National Center for Scientific Research</p>
+          </div>
+          <div class="org-card">
+            <h4>University of Economics Ho Chi Minh City</h4>
+            <p>Co-organizer</p>
+          </div>
+          <div class="org-card">
+            <h4>ISVE</h4>
+            <p>International Society of Vietnam Economists</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ ABOUT PAGE ══════════ -->
   <div id="page-about" class="page">
     <div class="page-body">
       <div>
         <h2 id="about-h"
-          style="font-family:'Playfair Display',serif;font-size:30px;color:var(--navy);margin-bottom:24px;"></h2>
+          style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:22px;"></h2>
         <div class="rc" id="about-rc"></div>
       </div>
       <div class="sidebar">
         <div class="sidebar-widget">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="#">Paper Submission</a></li>
-            <li><a href="#">Registration</a></li>
-            <li><a href="#">Organizing Committee</a></li>
-            <li><a href="#">Academic Committee</a></li>
+            <li><a onclick="nav('submission')">Paper Submission</a></li>
+            <li><a onclick="nav('registration')">Registration</a></li>
+            <li><a onclick="nav('announcements')">Announcements</a></li>
             <li><a href="#">Contact Us</a></li>
           </ul>
         </div>
@@ -1444,7 +2387,141 @@
     </div>
   </div>
 
-  <!-- ANNOUNCEMENTS -->
+  <!-- ══════════ REGISTRATION PAGE ══════════ -->
+  <div id="page-registration" class="page">
+    <div class="page-body">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:22px;">
+          Registration</h2>
+        <div class="rc">
+          <h2>How to Register</h2>
+          <p>Registration for VEAM 2026 will open on <strong>June 16, 2026</strong> and close on <strong>June 30,
+              2026</strong>. All accepted paper authors and attendees must register to participate.</p>
+          <h3>Registration Categories</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Fee</th>
+                <th>Includes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Faculty / Researcher</td>
+                <td>TBA</td>
+                <td>All sessions, proceedings, meals</td>
+              </tr>
+              <tr>
+                <td>PhD Student</td>
+                <td>TBA (reduced)</td>
+                <td>All sessions, proceedings, meals</td>
+              </tr>
+              <tr>
+                <td>Audience / Press</td>
+                <td>Free</td>
+                <td>Open plenary sessions only</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3>Process</h3>
+          <ol>
+            <li>Receive acceptance notification (by June 15, 2026)</li>
+            <li>Complete the online registration form (link to be provided)</li>
+            <li>Complete payment to confirm your spot</li>
+            <li>Receive confirmation and logistics information</li>
+          </ol>
+          <p>Newspaper, television reporters, and wider audience are welcome to register for an official seat at the
+            two-day meeting. For specific requests, email <strong>veam@depocen.org</strong></p>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="sidebar-widget">
+          <h3>Deadlines</h3>
+          <ul>
+            <li><a>Registration opens: Jun 16</a></li>
+            <li><a>Registration closes: Jun 30</a></li>
+            <li><a>Conference: Jul 13–14</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Contact</h3>
+          <ul>
+            <li><a>veam@depocen.org</a></li>
+            <li><a>(84 24) 39351419</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PAPER SUBMISSION PAGE ══════════ -->
+  <div id="page-submission" class="page">
+    <div class="page-body">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:22px;">Paper
+          Submission</h2>
+        <div class="rc">
+          <h2>Call for Papers – VEAM 2026</h2>
+          <p>The 17th Vietnam Economists Annual Meeting invites submissions of research papers in all areas of economics
+            and social sciences. Papers may be theoretical, empirical, or policy-oriented.</p>
+          <h3>Submission Guidelines</h3>
+          <ul>
+            <li>All papers must be submitted <strong>in English</strong></li>
+            <li>Deadline: <strong>May 31, 2026 at 5:00 PM Hanoi time</strong></li>
+            <li>Papers should be submitted as PDF files</li>
+            <li>Maximum length: 50 pages including references and appendices</li>
+            <li>Use standard economics formatting (12pt, double-spaced)</li>
+            <li>Include an abstract of no more than 250 words</li>
+            <li>JEL classification codes required</li>
+          </ul>
+          <h3>Review Process</h3>
+          <p>All submitted papers will undergo a double-blind peer-review process. Authors will be notified of the
+            decision by <strong>June 15, 2026</strong>.</p>
+          <h3>Submit Your Paper</h3>
+          <p>Click the button below to access the submission portal:</p>
+          <p><a href="https://forms.gle/ATuchs8b8s2d4NTR8" target="_blank"
+              style="display:inline-block;background:var(--navy);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 24px;border-radius:6px;text-decoration:none;margin-top:8px;">→
+              Submit Paper via Google Forms</a></p>
+          <h3>Topics of Interest</h3>
+          <p>VEAM 2026 welcomes papers on all topics in economics and social sciences, with particular interest in:</p>
+          <ul>
+            <li>Development Economics and Policy</li>
+            <li>Behavioral Economics and Experiments</li>
+            <li>Environmental and Resource Economics</li>
+            <li>Labor Economics and Human Capital</li>
+            <li>International Trade and Finance</li>
+            <li>Macroeconomics and Monetary Policy</li>
+            <li>Health Economics</li>
+            <li>Education Economics</li>
+            <li>Vietnam and Southeast Asian Economies</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="sidebar-widget">
+          <h3>Key Dates</h3>
+          <ul>
+            <li><a>Submission: May 31, 2026</a></li>
+            <li><a>Decision: June 15, 2026</a></li>
+            <li><a>Conference: Jul 13–14, 2026</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Requirements</h3>
+          <ul>
+            <li><a>Language: English only</a></li>
+            <li><a>Format: PDF</a></li>
+            <li><a>Max 50 pages</a></li>
+            <li><a>250-word abstract</a></li>
+            <li><a>JEL codes required</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ ANNOUNCEMENTS PAGE ══════════ -->
   <div id="page-ann" class="page">
     <div class="page-body">
       <div>
@@ -1464,13 +2541,23 @@
             <li><a>Archives</a></li>
           </ul>
         </div>
+        <div class="sidebar-widget">
+          <h3>Paper Archives</h3>
+          <ul>
+            <li><a>Conference papers – 2025</a></li>
+            <li><a>Conference papers – 2024</a></li>
+            <li><a>Conference papers – 2023</a></li>
+            <li><a>Conference papers – 2022</a></li>
+            <li><a>Conference Papers – 2019</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- EVENT DETAIL -->
+  <!-- ══════════ EVENT DETAIL ══════════ -->
   <div id="page-evdet" class="page">
-    <div class="page-body full" style="max-width:880px;margin:0 auto;">
+    <div class="page-body full" style="max-width:860px;margin:0 auto;">
       <button class="back-btn" onclick="nav('announcements')">← Back to Announcements</button>
       <h1 class="ev-det-title" id="det-title"></h1>
       <div class="ev-det-meta" id="det-meta"></div>
@@ -1478,7 +2565,7 @@
     </div>
   </div>
 
-  <!-- ADMIN -->
+  <!-- ══════════ ADMIN PAGE ══════════ -->
   <div id="page-admin" class="page">
     <div id="admin-login">
       <div class="login-wrap">
@@ -1501,7 +2588,7 @@
     <div id="admin-dash" style="display:none;">
       <div class="admin-layout">
         <div class="admin-sidebar">
-          <div style="padding:0 24px 20px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px;">
+          <div style="padding:0 20px 18px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px;">
             <div
               style="font-family:'DM Sans',sans-serif;font-size:10px;color:#5a7aaa;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;">
               Logged in as</div>
@@ -1509,29 +2596,26 @@
             </div>
           </div>
           <div class="a-sec">Content</div>
-          <button class="a-nav active" id="anav-about" onclick="aTab('about')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <button class="a-nav active" id="anav-about" onclick="aTab('about')"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>About Page
-          </button>
-          <button class="a-nav" id="anav-events" onclick="aTab('events')">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            </svg>About Page</button>
+          <button class="a-nav" id="anav-events" onclick="aTab('events')"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
               <rect x="3" y="4" width="18" height="18" rx="2" />
               <line x1="16" y1="2" x2="16" y2="6" />
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>Events
-          </button>
+            </svg>Events</button>
           <div class="a-sec">Account</div>
-          <button class="a-nav" onclick="doLogout()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <button class="a-nav" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
               <polyline points="16 17 21 12 16 7" />
               <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>Logout
-          </button>
+            </svg>Logout</button>
         </div>
         <div class="admin-main">
           <div id="atab-about">
@@ -1540,11 +2624,11 @@
                 Page</button>
             </div>
             <div class="a-card">
-              <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-muted);margin-bottom:14px;">
+              <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-muted);margin-bottom:12px;">
                 Current content preview:</p>
-              <h3 id="about-prev-h" style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:12px;">
+              <h3 id="about-prev-h" style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:10px;">
               </h3>
-              <div class="rc" id="about-prev-rc" style="max-height:260px;overflow:hidden;position:relative;"></div>
+              <div class="rc" id="about-prev-rc" style="max-height:240px;overflow:hidden;position:relative;"></div>
             </div>
           </div>
           <div id="atab-events" style="display:none;">
@@ -1572,13 +2656,13 @@
     </div>
   </div>
 
-  <!-- FULL-PAGE EDITOR -->
+  <!-- ══════════ FULL-PAGE EDITOR ══════════ -->
   <div id="page-editor" class="page">
     <div class="ep-header">
       <button class="ep-back" id="ep-back-btn">← Back</button>
       <div class="ep-title" id="ep-title">Editor</div>
       <div class="ep-actions">
-        <button class="btn btn-secondary" id="ep-cancel-btn">Cancel</button>
+        <button class="btn btn-secondary" id="ep-cancel-btn" style="font-size:12px;padding:7px 14px;">Cancel</button>
         <button class="btn btn-primary" id="ep-save-btn">💾 Save</button>
       </div>
     </div>
@@ -1618,12 +2702,16 @@
         <div>
           <h4>VEAM</h4>
           <p>The Vietnam Economists Annual Meeting is an annual conference for economists and social researchers
-            worldwide.</p>
+            worldwide to present scholarly works and foster academic dialogue.</p>
+          <p style="margin-top:12px;"><a href="https://www.facebook.com/VEAM2016/" target="_blank"
+              style="color:var(--gold-light);font-family:'DM Sans',sans-serif;font-size:13px;">Facebook VEAM →</a></p>
         </div>
         <div>
           <h4>Navigation</h4>
           <ul>
             <li onclick="nav('about')">About Us</li>
+            <li onclick="nav('registration')">Registration</li>
+            <li onclick="nav('submission')">Paper Submission</li>
             <li onclick="nav('announcements')">Announcements</li>
           </ul>
         </div>
@@ -1633,6 +2721,7 @@
             <li>veam@depocen.org</li>
             <li>(84 24) 39351419</li>
             <li>8:00AM – 6:00PM</li>
+            <li style="margin-top:8px;">DEPOCEN, Hanoi, Vietnam</li>
           </ul>
         </div>
       </div>
@@ -1644,45 +2733,113 @@
   <div id="toast"></div>
 
   <script>
-    // ── STATE ──────────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // HERO SLIDER
+    // ══════════════════════════════════════════════════════════
+    let currentSlide = 0;
+    const totalSlides = 4;
+    let sliderTimer = null;
+
+    function buildDots() {
+      const dc = document.getElementById('slider-dots');
+      dc.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.onclick = () => slideTo(i);
+        dc.appendChild(d);
+      }
+    }
+
+    function slideTo(idx) {
+      const slides = document.querySelectorAll('.hero-slide');
+      slides[currentSlide].classList.remove('active');
+      currentSlide = ((idx % totalSlides) + totalSlides) % totalSlides;
+      slides[currentSlide].classList.add('active');
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+      document.getElementById('slide-counter').textContent = (currentSlide + 1) + ' / ' + totalSlides;
+      resetTimer();
+    }
+
+    function resetTimer() {
+      clearInterval(sliderTimer);
+      sliderTimer = setInterval(() => slideTo(currentSlide + 1), 5000);
+    }
+
+    buildDots();
+    resetTimer();
+
+    // ══════════════════════════════════════════════════════════
+    // MOBILE MENU
+    // ══════════════════════════════════════════════════════════
+    function toggleMobileMenu() {
+      const mm = document.getElementById('mobile-menu');
+      const hb = document.getElementById('ham-btn');
+      mm.classList.toggle('open');
+      hb.classList.toggle('open');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+      document.getElementById('ham-btn').classList.remove('open');
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // STATE
+    // ══════════════════════════════════════════════════════════
     const S = {
-      loggedIn: false,
-      aTab: 'about',
-      edMode: null,      // 'about' | 'event'
-      edEvId: null,
+      loggedIn: false, aTab: 'about', edMode: null, edEvId: null,
       about: {
         heading: 'About VEAM',
-        content: `<h2>What is VEAM?</h2><p>The <strong>Vietnam Economists Annual Meeting (VEAM)</strong> is an annual conference for economists and social researchers worldwide to present their scholarly works. The conference is organized by a consortium of six Vietnamese universities in collaboration with the Development and Policies Research Center (DEPOCEN).</p><p>Since its founding, VEAM has grown into one of Southeast Asia's premier academic economics conferences, attracting researchers from across the globe.</p><h2>Organizing Institutions</h2><ul><li>University of Economics – Hue University</li><li>Foreign Trade University</li><li>University of Economics – University of Da Nang</li><li>University of Economics Ho Chi Minh City (UEH)</li><li>Thai Nguyen University of Economics &amp; Business Administration</li><li>University of Economics and Law</li></ul><h2>Mission</h2><p>VEAM aims to promote high-quality economic research in Vietnam and Southeast Asia, facilitate knowledge exchange between domestic and international scholars, and provide a platform for emerging researchers to present their work.</p><blockquote>VEAM is a bridge between Vietnamese and international economic research communities.</blockquote>`
+        content: `<h2>What is VEAM?</h2><p>The <strong>Vietnam Economists Annual Meeting (VEAM)</strong> is an annual conference for economists and social researchers worldwide to present their scholarly works. Organized by a consortium of six Vietnamese universities in collaboration with the Development and Policies Research Center (DEPOCEN).</p><p>Since its founding, VEAM has grown into one of Southeast Asia's premier academic economics conferences, attracting researchers from across the globe.</p><h2>Organizing Institutions</h2><ul><li>University of Economics – Hue University</li><li>Foreign Trade University</li><li>University of Economics – University of Da Nang</li><li>University of Economics Ho Chi Minh City (UEH)</li><li>Thai Nguyen University of Economics &amp; Business Administration</li><li>University of Economics and Law</li></ul><h2>Mission</h2><p>VEAM aims to promote high-quality economic research in Vietnam and Southeast Asia, facilitate knowledge exchange between domestic and international scholars, and provide a platform for emerging researchers to present their work.</p><blockquote>VEAM is a bridge between Vietnamese and international economic research communities.</blockquote>`
       },
       events: [
-        { id: 1, title: '17th Vietnam Economists Annual Meeting (VEAM 2026) – Call for Papers', date: '2026-07-13', location: 'Hue, Vietnam', status: 'published', tags: ['Call for Papers', 'Conference'], content: `<h2>Call for Papers – VEAM 2026</h2><p>The <strong>17th Vietnam Economists Annual Meeting (VEAM 2026)</strong> invites submissions from economists and social science researchers worldwide.</p><h3>Conference Details</h3><ul><li><strong>Date:</strong> July 13–14, 2026</li><li><strong>Location:</strong> University of Economics – Hue University, Hue, Vietnam</li><li><strong>Submission Deadline:</strong> May 31, 2026 (5pm Hanoi time)</li></ul><h3>Keynote Speakers</h3><ul><li>Professor Philippe Aghion – London School of Economics</li><li>Professor Thi Kim Cuong PHAM – University of Paris Nanterre</li><li>Professor Maria-Giuseppina BRUNA – IPAG Business School</li></ul><p>All papers must be submitted in English. Acceptance notifications will be sent by June 15, 2026.</p>` },
-        { id: 2, title: 'VEAM 2025 Conference Papers Now Available', date: '2025-09-01', location: 'Online Archive', status: 'published', tags: ['Archives', 'Conference Papers'], content: `<h2>VEAM 2025 Conference Papers</h2><p>All papers presented at the 16th Vietnam Economists Annual Meeting are now available in the online archive. The conference featured over 120 paper presentations across 18 parallel sessions.</p>` },
+        { id: 1, title: '17th Vietnam Economists Annual Meeting (VEAM 2026) – Call for Papers', date: '2026-07-13', location: 'Hue, Vietnam', status: 'published', tags: ['Call for Papers', 'Conference'], content: `<h2>Call for Papers – VEAM 2026</h2><p>The <strong>17th Vietnam Economists Annual Meeting (VEAM 2026)</strong> invites submissions from economists and social science researchers worldwide.</p><h3>Conference Details</h3><ul><li><strong>Date:</strong> July 13–14, 2026</li><li><strong>Location:</strong> University of Economics – Hue University, Hue, Vietnam</li><li><strong>Deadline:</strong> May 31, 2026 (5pm Hanoi time)</li></ul><h3>Keynote Speakers</h3><ul><li>Professor Philippe Aghion – London School of Economics</li><li>Professor Thi Kim Cuong PHAM – University of Paris Nanterre</li><li>Professor Maria-Giuseppina BRUNA – IPAG Business School</li></ul><p>All papers must be submitted in English. Acceptance notifications will be sent by June 15, 2026.</p>` },
+        { id: 2, title: 'VEAM 2025 Conference Papers Now Available', date: '2025-09-01', location: 'Online Archive', status: 'published', tags: ['Archives', 'Conference Papers'], content: `<h2>VEAM 2025 Conference Papers</h2><p>All papers presented at the 16th Vietnam Economists Annual Meeting are now available in the online archive. Over 120 presentations across 18 parallel sessions.</p>` },
         { id: 3, title: 'Registration Open for VEAM 2026', date: '2026-06-16', location: 'Online', status: 'draft', tags: ['Registration'], content: `<h2>Registration Now Open</h2><p>Registration for VEAM 2026 is now open. Please complete your registration before June 30, 2026.</p>` }
       ],
       nextId: 4
     };
 
-    // ── NAVIGATION ────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // NAVIGATION
+    // ══════════════════════════════════════════════════════════
     function nav(page) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      document.querySelectorAll('nav a, .mobile-menu a').forEach(a => a.classList.remove('active'));
       const hero = document.getElementById('hero-section');
       const footer = document.getElementById('footer');
       const header = document.getElementById('header');
+      const topbar = document.getElementById('topbar');
       footer.style.display = '';
       header.style.display = '';
+      topbar.style.display = '';
 
-      if (page === 'home' || page === 'announcements') {
-        hero.style.display = page === 'home' ? 'block' : 'none';
+      if (page === 'home') {
+        hero.style.display = 'block';
+        document.getElementById('page-home').classList.add('active');
+      } else if (page === 'announcements') {
+        hero.style.display = 'none';
         document.getElementById('page-ann').classList.add('active');
         document.getElementById('nav-ann').classList.add('active');
+        document.getElementById('mnav-ann').classList.add('active');
         renderEvList();
       } else if (page === 'about') {
         hero.style.display = 'none';
         document.getElementById('page-about').classList.add('active');
         document.getElementById('nav-about').classList.add('active');
+        document.getElementById('mnav-about').classList.add('active');
         document.getElementById('about-h').textContent = S.about.heading;
         document.getElementById('about-rc').innerHTML = S.about.content;
+      } else if (page === 'registration') {
+        hero.style.display = 'none';
+        document.getElementById('page-registration').classList.add('active');
+        document.getElementById('nav-reg').classList.add('active');
+        document.getElementById('mnav-reg').classList.add('active');
+      } else if (page === 'submission') {
+        hero.style.display = 'none';
+        document.getElementById('page-submission').classList.add('active');
+        document.getElementById('nav-sub').classList.add('active');
+        document.getElementById('mnav-sub').classList.add('active');
       } else if (page === 'evdet') {
         hero.style.display = 'none';
         document.getElementById('page-evdet').classList.add('active');
@@ -1702,18 +2859,24 @@
         hero.style.display = 'none';
         footer.style.display = 'none';
         header.style.display = 'none';
+        topbar.style.display = 'none';
         document.getElementById('page-editor').classList.add('active');
       }
       window.scrollTo(0, 0);
+      closeMobileMenu();
     }
 
-    // ── ABOUT ──────────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // ABOUT
+    // ══════════════════════════════════════════════════════════
     function renderAboutPrev() {
       document.getElementById('about-prev-h').textContent = S.about.heading;
       document.getElementById('about-prev-rc').innerHTML = S.about.content;
     }
 
-    // ── EVENTS LIST ────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // EVENTS
+    // ══════════════════════════════════════════════════════════
     function renderEvList() {
       const list = S.events.filter(e => e.status === 'published');
       const c = document.getElementById('ev-list');
@@ -1728,10 +2891,10 @@
           <div class="exc">${stripHtml(ev.content).slice(0, 150)}…</div>
           <div class="tags">${ev.tags.map(t => `<span class="tag">${t}</span>`).join('')}${ev.location ? `<span class="tag">📍 ${ev.location}</span>` : ''}</div>
         </div>
-      </div>
-    </div>`;
+      </div></div>`;
       }).join('');
     }
+
     function viewEv(id) {
       const ev = S.events.find(e => e.id === id); if (!ev) return;
       const d = new Date(ev.date + 'T00:00:00');
@@ -1739,34 +2902,37 @@
       document.getElementById('det-meta').innerHTML =
         `<span>📅 ${d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>` +
         (ev.location ? `<span>📍 ${ev.location}</span>` : '') +
-        ev.tags.map(t => `<span style="background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:2px 10px;font-size:12px;">${t}</span>`).join('');
+        ev.tags.map(t => `<span style="background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:2px 9px;font-size:11px;">${t}</span>`).join('');
       document.getElementById('det-content').innerHTML = ev.content;
       nav('evdet');
     }
+
     function renderEvAdminList() {
       const tb = document.getElementById('ev-admin-list');
-      if (!S.events.length) { tb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--text-muted);">No events yet.</td></tr>'; return; }
+      if (!S.events.length) { tb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:28px;color:var(--text-muted);">No events yet.</td></tr>'; return; }
       tb.innerHTML = S.events.map(ev => {
         const d = new Date(ev.date + 'T00:00:00');
         return `<tr>
-      <td style="font-weight:500;color:var(--navy);max-width:300px;">${ev.title}</td>
+      <td style="font-weight:500;color:var(--navy);max-width:280px;">${ev.title}</td>
       <td style="white-space:nowrap;">${d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</td>
       <td>${ev.location || '—'}</td>
       <td><span class="badge badge-${ev.status}">${ev.status.charAt(0).toUpperCase() + ev.status.slice(1)}</span></td>
-      <td><div style="display:flex;gap:8px;">
-        <button class="btn btn-secondary" style="padding:6px 12px;font-size:12px;" onclick="openEditor('event',${ev.id})">✏ Edit</button>
-        <button class="btn btn-danger" style="padding:6px 12px;font-size:12px;" onclick="delEv(${ev.id})">🗑</button>
-      </div></td>
-    </tr>`;
+      <td><div style="display:flex;gap:7px;">
+        <button class="btn btn-secondary" style="padding:5px 10px;font-size:12px;" onclick="openEditor('event',${ev.id})">✏ Edit</button>
+        <button class="btn btn-danger" style="padding:5px 10px;font-size:12px;" onclick="delEv(${ev.id})">🗑</button>
+      </div></td></tr>`;
       }).join('');
     }
+
     function delEv(id) {
       if (!confirm('Delete this event?')) return;
       S.events = S.events.filter(e => e.id !== id);
       renderEvAdminList(); toast('Event deleted');
     }
 
-    // ── ADMIN ──────────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // ADMIN
+    // ══════════════════════════════════════════════════════════
     function aTab(tab) {
       S.aTab = tab;
       document.querySelectorAll('.a-nav').forEach(el => el.classList.remove('active'));
@@ -1775,6 +2941,7 @@
       if (tab === 'about') renderAboutPrev();
       if (tab === 'events') renderEvAdminList();
     }
+
     function doLogin() {
       if (document.getElementById('l-user').value.trim() === 'admin' && document.getElementById('l-pass').value === 'admin123') {
         S.loggedIn = true; document.getElementById('login-err').classList.remove('show'); nav('admin');
@@ -1782,11 +2949,12 @@
     }
     function doLogout() { S.loggedIn = false; nav('home'); toast('Logged out'); }
 
-    // ── OPEN EDITOR PAGE ───────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // OPEN EDITOR PAGE
+    // ══════════════════════════════════════════════════════════
     function openEditor(mode, evId) {
       S.edMode = mode; S.edEvId = evId;
       nav('editor');
-
       const back = () => { nav('admin'); aTab(mode === 'about' ? 'about' : 'events'); };
       document.getElementById('ep-back-btn').onclick = back;
       document.getElementById('ep-cancel-btn').onclick = back;
@@ -1825,6 +2993,7 @@
       toast('About page saved!');
       nav('admin'); aTab('about');
     }
+
     function saveEvent() {
       const title = document.getElementById('ev-inp-title').value.trim();
       if (!title) { alert('Please enter a title.'); return; }
@@ -1842,9 +3011,11 @@
       nav('admin'); aTab('events');
     }
 
-    // ── EDITOR CORE ───────────────────────────────────────────────────────────
-    let _range = null;   // saved selection range
-    let _edId = 'ep-editor'; // active editor id
+    // ══════════════════════════════════════════════════════════
+    // EDITOR – SELECTION MANAGEMENT
+    // ══════════════════════════════════════════════════════════
+    let _range = null;
+    let _edId = 'ep-editor';
 
     function saveRange(edId) {
       _edId = edId;
@@ -1854,40 +3025,65 @@
       }
     }
 
+    // Insert HTML at saved cursor position, with DOM-append fallback
     function insertHTML(html) {
       const ed = document.getElementById(_edId);
       ed.focus();
-
-      // Restore saved range
       if (_range) {
         try {
           const sel = window.getSelection();
           sel.removeAllRanges();
           sel.addRange(_range);
-          // delete selected content and insert new
           _range.deleteContents();
           const frag = _range.createContextualFragment(html);
-          const lastNode = frag.lastChild;
+          const last = frag.lastChild;
           _range.insertNode(frag);
-          if (lastNode) {
+          if (last) {
             const r2 = document.createRange();
-            r2.setStartAfter(lastNode);
-            r2.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(r2);
+            r2.setStartAfter(last); r2.collapse(true);
+            sel.removeAllRanges(); sel.addRange(r2);
             _range = r2.cloneRange();
           }
           return;
-        } catch (e) { /* fall through */ }
+        } catch (e) { }
       }
-
-      // Fallback: append
+      // Fallback: append to editor
       const tmp = document.createElement('div');
       tmp.innerHTML = html;
       while (tmp.firstChild) ed.appendChild(tmp.firstChild);
     }
 
-    // ── TOOLBAR ───────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // SMART PANEL POSITIONING – keeps panels inside viewport
+    // ══════════════════════════════════════════════════════════
+    function positionPanel(panel, anchorEl) {
+      if (!panel || !anchorEl) return;
+      const rect = anchorEl.getBoundingClientRect();
+      const panelW = panel.offsetWidth || 300;
+      const panelH = panel.offsetHeight || 200;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const margin = 8;
+
+      // Vertical: below button, flip up if not enough space
+      let top = rect.bottom + 4;
+      if (top + panelH > vh - margin) top = rect.top - panelH - 4;
+      if (top < margin) top = margin;
+
+      // Horizontal: align left of button, flip right-align if overflows
+      let left = rect.left;
+      if (left + panelW > vw - margin) left = vw - panelW - margin;
+      if (left < margin) left = margin;
+
+      panel.style.top = top + 'px';
+      panel.style.left = left + 'px';
+      panel.style.right = 'auto';
+      panel.style.bottom = 'auto';
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // TOOLBAR BUILDER
+    // ══════════════════════════════════════════════════════════
     const PALETTE = [
       '#000000', '#434343', '#666666', '#999999', '#b7b7b7', '#cccccc', '#d9d9d9', '#ffffff',
       '#ff0000', '#ff4500', '#ff9900', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#9900ff',
@@ -1899,59 +3095,53 @@
       '#660000', '#783f04', '#7f6000', '#274e13', '#0c343d', '#1c4587', '#20124d', '#4c1130'
     ];
 
+    // Registry of all open-able panels per toolbar
+    const _panels = {};
+
+    function closeAllPanels(tbId, except) {
+      if (_panels[tbId]) {
+        _panels[tbId].forEach(p => { if (p !== except) p.classList.remove('open'); });
+      }
+    }
+
     function buildToolbar(tbId, edId) {
       const tb = document.getElementById(tbId);
       tb.innerHTML = '';
       const ed = document.getElementById(edId);
+      _panels[tbId] = [];
 
-      // Hook editor events to save range
       ['mouseup', 'keyup', 'focus'].forEach(ev => ed.addEventListener(ev, () => saveRange(edId)));
 
       function exec(cmd, val = null) { ed.focus(); document.execCommand(cmd, false, val); saveRange(edId); }
       function sep() { const s = document.createElement('div'); s.className = 'tb-sep'; return s; }
 
-      function btn(html, title, handler, extraClass = '') {
+      function btn(html, title, handler) {
         const b = document.createElement('button');
-        b.className = 'tb-btn' + (extraClass ? ' ' + extraClass : '');
-        b.innerHTML = html; b.title = title;
+        b.className = 'tb-btn'; b.innerHTML = html; b.title = title;
         b.onmousedown = e => { e.preventDefault(); saveRange(edId); handler(b); };
         return b;
       }
-
       function sel(opts, handler, w) {
-        const s = document.createElement('select');
-        s.className = 'tb-sel'; if (w) s.style.width = w + 'px';
+        const s = document.createElement('select'); s.className = 'tb-sel';
+        if (w) s.style.width = w + 'px';
         opts.forEach(([v, l]) => { const o = document.createElement('option'); o.value = v; o.textContent = l; s.appendChild(o); });
         s.onmousedown = () => saveRange(edId);
         s.onchange = () => { handler(s.value); s.value = ''; };
         return s;
       }
 
-      function dropWrap(btn, dropEl) {
-        const w = document.createElement('div');
-        w.style.cssText = 'position:relative;display:inline-block;';
-        w.appendChild(btn); w.appendChild(dropEl);
-        return w;
-      }
-
-      // ── Heading + font size ──
-      tb.appendChild(sel([['', 'Normal'], ['h1', 'Heading 1'], ['h2', 'Heading 2'], ['h3', 'Heading 3'], ['h4', 'Heading 4'], ['pre', 'Code Block']], v => {
-        exec('formatBlock', v || 'div');
-      }, 105));
-      tb.appendChild(sel([['', 'Size'], ['1', '8pt'], ['2', '10pt'], ['3', '12pt'], ['4', '14pt'], ['5', '18pt'], ['6', '24pt'], ['7', '36pt']], v => {
-        if (v) exec('fontSize', v);
-      }, 68));
-
+      // ── Heading ──
+      tb.appendChild(sel([['', 'Normal'], ['h1', 'Heading 1'], ['h2', 'Heading 2'], ['h3', 'Heading 3'], ['h4', 'Heading 4'], ['pre', 'Code']], v => exec('formatBlock', v || 'div'), 105));
+      tb.appendChild(sel([['', 'Size'], ['1', '8pt'], ['2', '10pt'], ['3', '12pt'], ['4', '14pt'], ['5', '18pt'], ['6', '24pt'], ['7', '36pt']], v => { if (v) exec('fontSize', v); }, 68));
       tb.appendChild(sep());
 
-      // ── Style ──
+      // ── Text style ──
       tb.appendChild(btn('<b>B</b>', 'Bold', () => exec('bold')));
       tb.appendChild(btn('<i style="font-style:italic">I</i>', 'Italic', () => exec('italic')));
       tb.appendChild(btn('<u>U</u>', 'Underline', () => exec('underline')));
       tb.appendChild(btn('<s>S</s>', 'Strikethrough', () => exec('strikeThrough')));
       tb.appendChild(btn('x²', 'Superscript', () => exec('superscript')));
       tb.appendChild(btn('x₂', 'Subscript', () => exec('subscript')));
-
       tb.appendChild(sep());
 
       // ── Alignment ──
@@ -1959,42 +3149,40 @@
       tb.appendChild(btn('≡≡', 'Center', () => exec('justifyCenter')));
       tb.appendChild(btn('≡➡', 'Align Right', () => exec('justifyRight')));
       tb.appendChild(btn('☰', 'Justify', () => exec('justifyFull')));
-
       tb.appendChild(sep());
 
-      // ── Lists / indent ──
+      // ── Lists ──
       tb.appendChild(btn('•≡', 'Bullet List', () => exec('insertUnorderedList')));
       tb.appendChild(btn('1≡', 'Numbered List', () => exec('insertOrderedList')));
       tb.appendChild(btn('→|', 'Indent', () => exec('indent')));
       tb.appendChild(btn('|←', 'Outdent', () => exec('outdent')));
-
       tb.appendChild(sep());
 
-      // ── Block formats ──
+      // ── Block ──
       tb.appendChild(btn('❝', 'Blockquote', () => exec('formatBlock', 'blockquote')));
       tb.appendChild(btn('—', 'Horizontal Rule', () => exec('insertHorizontalRule')));
-      tb.appendChild(btn('⌫ fmt', 'Clear Formatting', () => exec('removeFormat')));
-
+      tb.appendChild(btn('⌫', 'Clear Formatting', () => exec('removeFormat')));
       tb.appendChild(sep());
 
       // ── TEXT COLOR ──
       const tcDrop = makeColorDrop(tbId + '-fc', 'Text Color', color => { exec('foreColor', color); });
-      const tcBtn = btn('<span style="color:var(--gold);font-weight:700;border-bottom:2px solid var(--gold);">A</span>', 'Text Color', () => {
-        tcDrop.classList.toggle('open');
-        bgDrop.classList.remove('open');
-        closePanels(tbId, tcDrop.id, bgDrop.id);
-      });
-      tb.appendChild(dropWrap(tcBtn, tcDrop));
+      document.body.appendChild(tcDrop);
+      _panels[tbId].push(tcDrop);
+      tb.appendChild(btn('<span style="color:var(--gold);font-weight:700;border-bottom:2px solid var(--gold)">A</span>', 'Text Color', (b) => {
+        const wasOpen = tcDrop.classList.contains('open');
+        closeAllPanels(tbId);
+        if (!wasOpen) { tcDrop.classList.add('open'); positionPanel(tcDrop, b); }
+      }));
 
       // ── HIGHLIGHT ──
       const bgDrop = makeColorDrop(tbId + '-bc', 'Highlight', color => { exec('hiliteColor', color); });
-      const bgBtn = btn('<span style="background:var(--gold-light);padding:0 2px;font-size:11px;border-radius:2px;">A</span>', 'Highlight', () => {
-        bgDrop.classList.toggle('open');
-        tcDrop.classList.remove('open');
-        closePanels(tbId, tcDrop.id, bgDrop.id);
-      });
-      tb.appendChild(dropWrap(bgBtn, bgDrop));
-
+      document.body.appendChild(bgDrop);
+      _panels[tbId].push(bgDrop);
+      tb.appendChild(btn('<span style="background:var(--gold-light);padding:0 2px;border-radius:2px;font-size:11px;">A</span>', 'Highlight', (b) => {
+        const wasOpen = bgDrop.classList.contains('open');
+        closeAllPanels(tbId);
+        if (!wasOpen) { bgDrop.classList.add('open'); positionPanel(bgDrop, b); }
+      }));
       tb.appendChild(sep());
 
       // ── TABLE ──
@@ -2006,72 +3194,65 @@
         html += '</table><p><br></p>';
         insertHTML(html);
       });
-      const tblBtn = btn('⊞ Table', 'Insert Table', () => {
-        tblDrop.classList.toggle('open');
-        closePanels(tbId, tblDrop.id);
-      });
-      tb.appendChild(dropWrap(tblBtn, tblDrop));
-
+      document.body.appendChild(tblDrop);
+      _panels[tbId].push(tblDrop);
+      tb.appendChild(btn('⊞ Table', 'Insert Table', (b) => {
+        const wasOpen = tblDrop.classList.contains('open');
+        closeAllPanels(tbId);
+        if (!wasOpen) { tblDrop.classList.add('open'); positionPanel(tblDrop, b); }
+      }));
       tb.appendChild(sep());
 
       // ── LINK ──
       const lkPanel = makeLinkPanel(tbId + '-lp', edId);
-      const lkBtn = btn('🔗 Link', 'Insert Link', () => {
-        lkPanel.classList.toggle('open');
-        imgPanel.classList.remove('open');
-        ytPanel.classList.remove('open');
-        closePanels(tbId, lkPanel.id, imgPanel.id, ytPanel.id);
-      });
-      tb.appendChild(dropWrap(lkBtn, lkPanel));
+      document.body.appendChild(lkPanel);
+      _panels[tbId].push(lkPanel);
+      tb.appendChild(btn('🔗 Link', 'Insert Link', (b) => {
+        const wasOpen = lkPanel.classList.contains('open');
+        closeAllPanels(tbId);
+        if (!wasOpen) { lkPanel.classList.add('open'); positionPanel(lkPanel, b); }
+      }));
 
       // ── IMAGE ──
       const imgPanel = makeImgPanel(tbId + '-ip', edId);
-      const imgBtn = btn('🖼 Image', 'Insert Image', () => {
-        imgPanel.classList.toggle('open');
-        lkPanel.classList.remove('open');
-        ytPanel.classList.remove('open');
-        closePanels(tbId, lkPanel.id, imgPanel.id, ytPanel.id);
-      });
-      tb.appendChild(dropWrap(imgBtn, imgPanel));
+      document.body.appendChild(imgPanel);
+      _panels[tbId].push(imgPanel);
+      tb.appendChild(btn('🖼 Image', 'Insert Image', (b) => {
+        const wasOpen = imgPanel.classList.contains('open');
+        closeAllPanels(tbId);
+        if (!wasOpen) { imgPanel.classList.add('open'); positionPanel(imgPanel, b); }
+      }));
 
       // ── YOUTUBE ──
       const ytPanel = makeYtPanel(tbId + '-yp', edId);
-      const ytBtn = btn('▶ YouTube', 'Embed YouTube', () => {
-        ytPanel.classList.toggle('open');
-        lkPanel.classList.remove('open');
-        imgPanel.classList.remove('open');
-        closePanels(tbId, lkPanel.id, imgPanel.id, ytPanel.id);
-      });
-      tb.appendChild(dropWrap(ytBtn, ytPanel));
-
+      document.body.appendChild(ytPanel);
+      _panels[tbId].push(ytPanel);
+      tb.appendChild(btn('▶ YouTube', 'Embed YouTube', (b) => {
+        const wasOpen = ytPanel.classList.contains('open');
+        closeAllPanels(tbId);
+        if (!wasOpen) { ytPanel.classList.add('open'); positionPanel(ytPanel, b); }
+      }));
       tb.appendChild(sep());
 
-      // ── Undo / Redo ──
+      // ── Undo/Redo ──
       tb.appendChild(btn('↩', 'Undo', () => exec('undo')));
       tb.appendChild(btn('↪', 'Redo', () => exec('redo')));
 
-      // Close everything on outside click
+      // Close panels on outside click
       document.addEventListener('mousedown', e => {
-        const inTb = tb.contains(e.target);
-        if (!inTb) {
-          [tcDrop, bgDrop, tblDrop, lkPanel, imgPanel, ytPanel].forEach(el => el && el.classList.remove('open'));
+        if (!tb.contains(e.target)) {
+          const allPanels = _panels[tbId] || [];
+          allPanels.forEach(p => { if (!p.contains(e.target)) p.classList.remove('open'); });
         }
       }, { capture: true });
     }
 
-    function closePanels(tbId, ...keepIds) {
-      // nothing extra needed – handled per button
-    }
-
-    // ── COLOR DROP ─────────────────────────────────────────────────────────────
+    // ── COLOR DROPDOWN ──────────────────────────────────────────────────────────
     function makeColorDrop(id, label, onPick) {
       const d = document.createElement('div');
-      d.id = id; d.className = 'drop';
-      d.style.cssText = 'top:30px;left:0;width:206px;';
-
+      d.id = id; d.className = 'drop'; d.style.width = '206px';
       const title = document.createElement('div'); title.className = 'drop-title'; title.textContent = label;
       d.appendChild(title);
-
       const grid = document.createElement('div'); grid.className = 'cp-swatches';
       PALETTE.forEach(c => {
         const sw = document.createElement('div'); sw.className = 'cp-swatch';
@@ -2080,26 +3261,20 @@
         grid.appendChild(sw);
       });
       d.appendChild(grid);
-
       const row = document.createElement('div'); row.className = 'cp-custom';
       const cpick = document.createElement('input'); cpick.type = 'color'; cpick.value = '#b8973a';
-      const ctxt = document.createElement('input'); ctxt.type = 'text'; ctxt.placeholder = '#hex or name'; ctxt.maxLength = 20;
-      const capply = document.createElement('button'); capply.className = 'btn btn-primary'; capply.style.cssText = 'padding:4px 10px;font-size:11px;'; capply.textContent = 'Apply';
+      const ctxt = document.createElement('input'); ctxt.type = 'text'; ctxt.placeholder = '#hex'; ctxt.maxLength = 20;
+      const capply = document.createElement('button'); capply.className = 'btn btn-primary'; capply.style.cssText = 'padding:3px 9px;font-size:11px;'; capply.textContent = 'Apply';
       cpick.oninput = () => { ctxt.value = cpick.value; };
-      capply.onmousedown = e => {
-        e.preventDefault();
-        const v = (ctxt.value || cpick.value).trim();
-        if (v) { onPick(v); d.classList.remove('open'); }
-      };
+      capply.onmousedown = e => { e.preventDefault(); const v = (ctxt.value || cpick.value).trim(); if (v) { onPick(v); d.classList.remove('open'); } };
       row.appendChild(cpick); row.appendChild(ctxt); row.appendChild(capply);
       d.appendChild(row);
       return d;
     }
 
-    // ── TABLE PICK ─────────────────────────────────────────────────────────────
+    // ── TABLE PICKER ──────────────────────────────────────────────────────────
     function makeTableDrop(id, onInsert) {
       const d = document.createElement('div'); d.id = id; d.className = 'drop';
-      d.style.cssText = 'top:30px;left:0;';
       const lbl = document.createElement('div'); lbl.className = 't-lbl'; lbl.textContent = '0 × 0'; d.appendChild(lbl);
       const grid = document.createElement('div'); grid.className = 'tgrid';
       const cells = [];
@@ -2115,14 +3290,13 @@
       return d;
     }
 
-    // ── LINK PANEL ─────────────────────────────────────────────────────────────
+    // ── LINK PANEL ──────────────────────────────────────────────────────────
     function makeLinkPanel(id, edId) {
-      const d = document.createElement('div'); d.id = id; d.className = 'fpanel';
-      d.style.cssText = 'top:30px;left:0;width:290px;';
+      const d = document.createElement('div'); d.id = id; d.className = 'fpanel'; d.style.width = '290px';
       d.innerHTML = `<div class="fpanel-title">Insert Link <button id="${id}-x">✕</button></div>
 <input class="fp-inp" id="${id}-url" type="text" placeholder="https://"/>
-<input class="fp-inp" id="${id}-txt" type="text" placeholder="Display text (leave blank to wrap selection)"/>
-<div class="fp-row"><button class="btn btn-secondary" id="${id}-cancel" style="font-size:12px;padding:6px 12px;">Cancel</button><button class="btn btn-primary" id="${id}-ok" style="font-size:12px;padding:6px 12px;">Insert</button></div>`;
+<input class="fp-inp" id="${id}-txt" type="text" placeholder="Display text (optional)"/>
+<div class="fp-row"><button class="btn btn-secondary" id="${id}-cancel" style="font-size:12px;padding:5px 11px;">Cancel</button><button class="btn btn-primary" id="${id}-ok" style="font-size:12px;padding:5px 11px;">Insert</button></div>`;
       requestAnimationFrame(() => {
         const close = () => d.classList.remove('open');
         document.getElementById(id + '-x').onmousedown = e => { e.preventDefault(); close(); };
@@ -2140,17 +3314,16 @@
       return d;
     }
 
-    // ── IMAGE PANEL ─────────────────────────────────────────────────────────────
+    // ── IMAGE PANEL ──────────────────────────────────────────────────────────
     function makeImgPanel(id, edId) {
-      const d = document.createElement('div'); d.id = id; d.className = 'fpanel';
-      d.style.cssText = 'top:30px;left:0;width:330px;max-height:480px;overflow-y:auto;';
+      const d = document.createElement('div'); d.id = id; d.className = 'fpanel'; d.style.cssText = 'width:320px;max-height:460px;overflow-y:auto;';
       d.innerHTML = `<div class="fpanel-title">Insert Image <button id="${id}-x">✕</button></div>
 <div class="uzone" id="${id}-zone">📁 Click or drag &amp; drop images</div>
 <input type="file" id="${id}-file" accept="image/*" multiple style="display:none"/>
 <div class="img-thumbs" id="${id}-thumbs"></div>
 <div class="or-line">or paste URL</div>
 <input class="fp-inp" id="${id}-url" type="text" placeholder="https://example.com/image.jpg"/>
-<div class="fp-row"><button class="btn btn-primary" id="${id}-urlok" style="font-size:12px;padding:6px 12px;">Insert URL</button></div>`;
+<div class="fp-row"><button class="btn btn-primary" id="${id}-urlok" style="font-size:12px;padding:5px 11px;">Insert URL</button></div>`;
       requestAnimationFrame(() => {
         const close = () => d.classList.remove('open');
         document.getElementById(id + '-x').onmousedown = e => { e.preventDefault(); close(); };
@@ -2160,22 +3333,19 @@
         zone.onclick = () => filein.click();
         zone.ondragover = e => { e.preventDefault(); zone.style.borderColor = 'var(--navy)'; };
         zone.ondragleave = () => { zone.style.borderColor = ''; };
-        zone.ondrop = e => {
-          e.preventDefault(); zone.style.borderColor = '';
-          Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach(f => readImg(f, thumbs, close));
-        };
+        zone.ondrop = e => { e.preventDefault(); zone.style.borderColor = ''; Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach(f => readImg(f, thumbs, close)); };
         filein.onchange = e => Array.from(e.target.files).forEach(f => readImg(f, thumbs, close));
         document.getElementById(id + '-urlok').onmousedown = e => {
           e.preventDefault();
           const url = document.getElementById(id + '-url').value.trim(); if (!url) return;
-          insertHTML(`<img src="${url}" alt="" style="max-width:100%;border-radius:4px;margin:8px 0;display:block;"/><p><br></p>`);
+          insertHTML(`<img src="${url}" alt="" style="max-width:100%;height:auto;border-radius:4px;margin:8px 0;display:block;"/><p><br></p>`);
           close();
         };
       });
       return d;
     }
 
-    function readImg(file, container, onInsert) {
+    function readImg(file, container, onClose) {
       const reader = new FileReader();
       reader.onload = e => {
         const src = e.target.result;
@@ -2183,8 +3353,8 @@
         th.innerHTML = `<img src="${src}" alt=""><div class="ins-ov">Insert</div>`;
         th.onmousedown = ev => {
           ev.preventDefault();
-          insertHTML(`<img src="${src}" alt="" style="max-width:100%;border-radius:4px;margin:8px 0;display:block;"/><p><br></p>`);
-          onInsert();
+          insertHTML(`<img src="${src}" alt="" style="max-width:100%;height:auto;border-radius:4px;margin:8px 0;display:block;"/><p><br></p>`);
+          onClose();
         };
         container.appendChild(th);
       };
@@ -2192,13 +3362,20 @@
     }
 
     // ── YOUTUBE PANEL ──────────────────────────────────────────────────────────
+    // FIX: Use responsive wrapper div + correct embed URL format
     function makeYtPanel(id, edId) {
-      const d = document.createElement('div'); d.id = id; d.className = 'fpanel';
-      d.style.cssText = 'top:30px;right:0;left:auto;width:300px;';
+      const d = document.createElement('div'); d.id = id; d.className = 'fpanel'; d.style.width = '300px';
       d.innerHTML = `<div class="fpanel-title">Embed YouTube <button id="${id}-x">✕</button></div>
 <input class="fp-inp" id="${id}-url" type="text" placeholder="YouTube URL or video ID"/>
-<select class="fp-inp" id="${id}-w" style="margin-bottom:8px;"><option value="full">Full width</option><option value="560">560px</option><option value="640">640px</option></select>
-<div class="fp-row"><button class="btn btn-secondary" id="${id}-cancel" style="font-size:12px;padding:6px 12px;">Cancel</button><button class="btn btn-primary" id="${id}-ok" style="font-size:12px;padding:6px 12px;">Embed</button></div>`;
+<select class="fp-inp" id="${id}-w" style="margin-bottom:8px;">
+  <option value="responsive">Responsive (recommended)</option>
+  <option value="560">Fixed 560px</option>
+  <option value="640">Fixed 640px</option>
+</select>
+<div class="fp-row">
+  <button class="btn btn-secondary" id="${id}-cancel" style="font-size:12px;padding:5px 11px;">Cancel</button>
+  <button class="btn btn-primary" id="${id}-ok" style="font-size:12px;padding:5px 11px;">Embed</button>
+</div>`;
       requestAnimationFrame(() => {
         const close = () => d.classList.remove('open');
         document.getElementById(id + '-x').onmousedown = e => { e.preventDefault(); close(); };
@@ -2206,15 +3383,35 @@
         document.getElementById(id + '-ok').onmousedown = e => {
           e.preventDefault();
           const raw = document.getElementById(id + '-url').value.trim(); if (!raw) return;
-          const w = document.getElementById(id + '-w').value;
+          const mode = document.getElementById(id + '-w').value;
+
+          // Extract video ID from any YouTube URL format
           let vid = raw;
-          const m1 = raw.match(/[?&]v=([^&\s]+)/);
-          const m2 = raw.match(/youtu\.be\/([^?&\s]+)/);
-          const m3 = raw.match(/embed\/([^?&\s]+)/);
-          if (m1) vid = m1[1]; else if (m2) vid = m2[1]; else if (m3) vid = m3[1];
+          const patterns = [
+            /[?&]v=([a-zA-Z0-9_-]{11})/,
+            /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+            /embed\/([a-zA-Z0-9_-]{11})/,
+            /shorts\/([a-zA-Z0-9_-]{11})/,
+            /^([a-zA-Z0-9_-]{11})$/
+          ];
+          for (const p of patterns) {
+            const m = raw.match(p);
+            if (m) { vid = m[1]; break; }
+          }
           vid = vid.trim();
-          const wStyle = w === 'full' ? 'width:100%;max-width:100%;' : 'width:' + w + 'px;max-width:100%;';
-          const html = `<div style="margin:16px 0;${wStyle}"><iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/${vid}" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="border-radius:6px;display:block;"></iframe></div><p><br></p>`;
+
+          // Build embed URL – use youtube.com (not nocookie) with proper params
+          // The key fix: add enablejsapi=0, origin not needed for non-API use
+          const embedUrl = `https://www.youtube.com/embed/${vid}?rel=0`;
+
+          let html;
+          if (mode === 'responsive') {
+            // Responsive 16:9 wrapper – works everywhere without fixed dimensions
+            html = `<div class="yt-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:12px 0;"><iframe src="${embedUrl}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:6px;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div><p><br></p>`;
+          } else {
+            const w = parseInt(mode);
+            html = `<div style="margin:12px 0;max-width:100%;"><iframe width="${w}" height="${Math.round(w * 9 / 16)}" src="${embedUrl}" style="max-width:100%;border-radius:6px;display:block;border:0;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div><p><br></p>`;
+          }
           insertHTML(html);
           close();
         };
@@ -2222,11 +3419,15 @@
       return d;
     }
 
-    // ── HELPERS ────────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // HELPERS
+    // ══════════════════════════════════════════════════════════
     function stripHtml(html) { const t = document.createElement('div'); t.innerHTML = html; return t.textContent || ''; }
     function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2800); }
 
-    // ── INIT ───────────────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════
+    // INIT
+    // ══════════════════════════════════════════════════════════
     nav('home');
   </script>
 </body>
