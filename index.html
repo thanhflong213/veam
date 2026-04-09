@@ -257,31 +257,40 @@
       position: relative;
       height: 480px;
       overflow: hidden;
+      background: var(--navy);
     }
 
-    @media(max-width:768px) {
-      .hero-slider {
-        height: auto;
-        min-height: 320px;
-      }
-    }
-
+    /* All slides are absolutely stacked – no layout shift */
     .hero-slide {
       position: absolute;
       inset: 0;
       opacity: 0;
-      transition: opacity .7s ease;
+      transition: opacity .8s ease;
       display: flex;
       align-items: stretch;
+      width: 100%;
+      height: 100%;
     }
 
     .hero-slide.active {
       opacity: 1;
-      position: relative;
+      z-index: 2;
     }
 
-    .hero-slide.active~.hero-slide {
-      position: absolute;
+    .hero-slide:not(.active) {
+      z-index: 1;
+    }
+
+    @media(max-width:768px) {
+      .hero-slider {
+        height: 360px;
+      }
+    }
+
+    @media(max-width:480px) {
+      .hero-slider {
+        height: 300px;
+      }
     }
 
     /* Text-only slide (original) */
@@ -290,8 +299,11 @@
       color: white;
       padding: 60px 20px 50px;
       width: 100%;
+      height: 100%;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
     }
 
     .hs-text::before {
@@ -361,8 +373,11 @@
     .hs-img {
       position: absolute;
       inset: 0;
+      width: 100%;
+      height: 100%;
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       display: flex;
       align-items: flex-end;
     }
@@ -2034,7 +2049,8 @@
 
   <div id="topbar">
     <div class="inner">
-      <span>✉ veam@depocen.org</span>
+      <span>✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+          data-cfemail="dea8bbbfb39ebabbaeb1bdbbb0f0b1acb9">[email&#160;protected]</a></span>
       <span>☎ (84 24) 39351419</span>
       <span>🕐 8:00AM – 6:00PM</span>
     </div>
@@ -2071,9 +2087,9 @@
   <div id="hero-section">
     <div class="hero-slider" id="hero-slider">
 
-      <!-- Slide 1: main text slide -->
+      <!-- Slide 1: main text slide (no image, full gradient) -->
       <div class="hero-slide active" id="slide-0">
-        <div class="hs-text" style="width:100%;">
+        <div class="hs-text">
           <div class="inner">
             <div class="slide-label">17th Annual Conference · 2026</div>
             <h1>Vietnam Economists Annual Meeting</h1>
@@ -2088,16 +2104,14 @@
         </div>
       </div>
 
-      <!-- Slide 2: keynote image slide -->
+      <!-- Slide 2: conference audience photo -->
       <div class="hero-slide" id="slide-1">
         <div class="hs-img"
-          style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&auto=format&fit=crop&q=80'),linear-gradient(135deg,#0d1b35 0%,#1a3060 40%,#0a1628 100%);width:100%;">
-          <div class="hs-img-overlay" style="width:100%;">
+          style="background-image:url('https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1400&auto=format&fit=crop&q=80');">
+          <div class="hs-img-overlay">
             <div class="inner">
-              <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
-                <span
-                  style="background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;">Keynote</span>
-              </div>
+              <span
+                style="background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;display:inline-block;margin-bottom:12px;">Keynote</span>
               <h2>World-Class Keynote Speakers</h2>
               <p>Prof. Philippe Aghion · Prof. Thi Kim Cuong PHAM · Prof. Maria-Giuseppina BRUNA</p>
             </div>
@@ -2105,17 +2119,15 @@
         </div>
       </div>
 
-      <!-- Slide 3: call for papers -->
+      <!-- Slide 3: library / research photo -->
       <div class="hero-slide" id="slide-2">
         <div class="hs-img"
-          style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&auto=format&fit=crop&q=80'),linear-gradient(135deg,#0d1b35 0%,#1a3060 40%,#0a1628 100%);width:100%;">
-          <div class="hs-img-overlay" style="width:100%;">
+          style="background-image:url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1400&auto=format&fit=crop&q=80');">
+          <div class="hs-img-overlay">
             <div class="inner">
-              <div style="display:flex;gap:8px;margin-bottom:12px;">
-                <span
-                  style="background:#e74c3c;color:white;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;">Deadline
-                  Approaching</span>
-              </div>
+              <span
+                style="background:#e74c3c;color:white;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;display:inline-block;margin-bottom:12px;">Deadline
+                Approaching</span>
               <h2>Call for Papers – Submit by May 31, 2026</h2>
               <p>All papers must be submitted in English. Decision on acceptance notified by June 15, 2026.</p>
             </div>
@@ -2123,18 +2135,33 @@
         </div>
       </div>
 
-      <!-- Slide 4: publication -->
+      <!-- Slide 4: Vietnam landscape photo -->
       <div class="hero-slide" id="slide-3">
         <div class="hs-img"
-          style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&auto=format&fit=crop&q=80'),linear-gradient(135deg,#0d1b35 0%,#1a3060 40%,#0a1628 100%);width:100%;">
-          <div class="hs-img-overlay" style="width:100%;">
+          style="background-image:url('https://images.unsplash.com/photo-1557750255-c76072a7aad1?w=1400&auto=format&fit=crop&q=80');">
+          <div class="hs-img-overlay">
             <div class="inner">
-              <div style="display:flex;gap:8px;margin-bottom:12px;">
-                <span
-                  style="background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;">Publication</span>
-              </div>
+              <span
+                style="background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;display:inline-block;margin-bottom:12px;">Location</span>
+              <h2>Hue, Vietnam – July 13–14, 2026</h2>
+              <p>Hosted at the University of Economics – Hue University, one of Vietnam's premier academic institutions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 5: academic journal / books photo -->
+      <div class="hero-slide" id="slide-4">
+        <div class="hs-img"
+          style="background-image:url('https://images.unsplash.com/photo-1532012197267-da84d127e765?w=1400&auto=format&fit=crop&q=80');">
+          <div class="hs-img-overlay">
+            <div class="inner">
+              <span
+                style="background:var(--gold);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;display:inline-block;margin-bottom:12px;">Publication</span>
               <h2>ISVE–VEAM Special Issue 2026</h2>
-              <p>Selected papers published in Revue d'Économie du Développement and other leading journals.</p>
+              <p>Selected papers published in Revue d'Économie du Développement and other leading international
+                journals.</p>
             </div>
           </div>
         </div>
@@ -2143,7 +2170,7 @@
       <button class="slider-btn slider-prev" onclick="slideTo(currentSlide-1)">&#8249;</button>
       <button class="slider-btn slider-next" onclick="slideTo(currentSlide+1)">&#8250;</button>
       <div class="slider-dots" id="slider-dots"></div>
-      <div class="slide-counter" id="slide-counter">1 / 4</div>
+      <div class="slide-counter" id="slide-counter">1 / 5</div>
     </div>
 
     <!-- Info strip below hero -->
@@ -2391,49 +2418,10 @@
   <div id="page-registration" class="page">
     <div class="page-body">
       <div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:22px;">
-          Registration</h2>
-        <div class="rc">
-          <h2>How to Register</h2>
-          <p>Registration for VEAM 2026 will open on <strong>June 16, 2026</strong> and close on <strong>June 30,
-              2026</strong>. All accepted paper authors and attendees must register to participate.</p>
-          <h3>Registration Categories</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>Fee</th>
-                <th>Includes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Faculty / Researcher</td>
-                <td>TBA</td>
-                <td>All sessions, proceedings, meals</td>
-              </tr>
-              <tr>
-                <td>PhD Student</td>
-                <td>TBA (reduced)</td>
-                <td>All sessions, proceedings, meals</td>
-              </tr>
-              <tr>
-                <td>Audience / Press</td>
-                <td>Free</td>
-                <td>Open plenary sessions only</td>
-              </tr>
-            </tbody>
-          </table>
-          <h3>Process</h3>
-          <ol>
-            <li>Receive acceptance notification (by June 15, 2026)</li>
-            <li>Complete the online registration form (link to be provided)</li>
-            <li>Complete payment to confirm your spot</li>
-            <li>Receive confirmation and logistics information</li>
-          </ol>
-          <p>Newspaper, television reporters, and wider audience are welcome to register for an official seat at the
-            two-day meeting. For specific requests, email <strong>veam@depocen.org</strong></p>
-        </div>
+        <h2 id="reg-page-h"
+          style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:22px;">Registration
+        </h2>
+        <div class="rc" id="reg-page-rc"></div>
       </div>
       <div class="sidebar">
         <div class="sidebar-widget">
@@ -2459,44 +2447,10 @@
   <div id="page-submission" class="page">
     <div class="page-body">
       <div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:22px;">Paper
+        <h2 id="sub-page-h"
+          style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:22px;">Paper
           Submission</h2>
-        <div class="rc">
-          <h2>Call for Papers – VEAM 2026</h2>
-          <p>The 17th Vietnam Economists Annual Meeting invites submissions of research papers in all areas of economics
-            and social sciences. Papers may be theoretical, empirical, or policy-oriented.</p>
-          <h3>Submission Guidelines</h3>
-          <ul>
-            <li>All papers must be submitted <strong>in English</strong></li>
-            <li>Deadline: <strong>May 31, 2026 at 5:00 PM Hanoi time</strong></li>
-            <li>Papers should be submitted as PDF files</li>
-            <li>Maximum length: 50 pages including references and appendices</li>
-            <li>Use standard economics formatting (12pt, double-spaced)</li>
-            <li>Include an abstract of no more than 250 words</li>
-            <li>JEL classification codes required</li>
-          </ul>
-          <h3>Review Process</h3>
-          <p>All submitted papers will undergo a double-blind peer-review process. Authors will be notified of the
-            decision by <strong>June 15, 2026</strong>.</p>
-          <h3>Submit Your Paper</h3>
-          <p>Click the button below to access the submission portal:</p>
-          <p><a href="https://forms.gle/ATuchs8b8s2d4NTR8" target="_blank"
-              style="display:inline-block;background:var(--navy);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 24px;border-radius:6px;text-decoration:none;margin-top:8px;">→
-              Submit Paper via Google Forms</a></p>
-          <h3>Topics of Interest</h3>
-          <p>VEAM 2026 welcomes papers on all topics in economics and social sciences, with particular interest in:</p>
-          <ul>
-            <li>Development Economics and Policy</li>
-            <li>Behavioral Economics and Experiments</li>
-            <li>Environmental and Resource Economics</li>
-            <li>Labor Economics and Human Capital</li>
-            <li>International Trade and Finance</li>
-            <li>Macroeconomics and Monetary Policy</li>
-            <li>Health Economics</li>
-            <li>Education Economics</li>
-            <li>Vietnam and Southeast Asian Economies</li>
-          </ul>
-        </div>
+        <div class="rc" id="sub-page-rc"></div>
       </div>
       <div class="sidebar">
         <div class="sidebar-widget">
@@ -2602,6 +2556,21 @@
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>About Page</button>
+          <button class="a-nav" id="anav-registration" onclick="aTab('registration')"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>Registration</button>
+          <button class="a-nav" id="anav-submission" onclick="aTab('submission')"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>Paper Submission</button>
           <button class="a-nav" id="anav-events" onclick="aTab('events')"><svg viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2">
               <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -2629,6 +2598,32 @@
               <h3 id="about-prev-h" style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:10px;">
               </h3>
               <div class="rc" id="about-prev-rc" style="max-height:240px;overflow:hidden;position:relative;"></div>
+            </div>
+          </div>
+          <div id="atab-registration" style="display:none;">
+            <div class="a-hdr">
+              <h2>Registration Page</h2><button class="btn btn-primary" onclick="openEditor('registration')">✏ Edit
+                Registration Page</button>
+            </div>
+            <div class="a-card">
+              <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-muted);margin-bottom:12px;">
+                Current content preview:</p>
+              <h3 id="reg-prev-h" style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:10px;">
+              </h3>
+              <div class="rc" id="reg-prev-rc" style="max-height:240px;overflow:hidden;position:relative;"></div>
+            </div>
+          </div>
+          <div id="atab-submission" style="display:none;">
+            <div class="a-hdr">
+              <h2>Paper Submission Page</h2><button class="btn btn-primary" onclick="openEditor('submission')">✏ Edit
+                Submission Page</button>
+            </div>
+            <div class="a-card">
+              <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-muted);margin-bottom:12px;">
+                Current content preview:</p>
+              <h3 id="sub-prev-h" style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:10px;">
+              </h3>
+              <div class="rc" id="sub-prev-rc" style="max-height:240px;overflow:hidden;position:relative;"></div>
             </div>
           </div>
           <div id="atab-events" style="display:none;">
@@ -2718,7 +2713,8 @@
         <div>
           <h4>Contact</h4>
           <ul>
-            <li>veam@depocen.org</li>
+            <li><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                data-cfemail="116774707c517574617e72747f3f7e6376">[email&#160;protected]</a></li>
             <li>(84 24) 39351419</li>
             <li>8:00AM – 6:00PM</li>
             <li style="margin-top:8px;">DEPOCEN, Hanoi, Vietnam</li>
@@ -2732,12 +2728,13 @@
 
   <div id="toast"></div>
 
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
     // ══════════════════════════════════════════════════════════
     // HERO SLIDER
     // ══════════════════════════════════════════════════════════
     let currentSlide = 0;
-    const totalSlides = 4;
+    const totalSlides = 5;
     let sliderTimer = null;
 
     function buildDots() {
@@ -2792,6 +2789,14 @@
         heading: 'About VEAM',
         content: `<h2>What is VEAM?</h2><p>The <strong>Vietnam Economists Annual Meeting (VEAM)</strong> is an annual conference for economists and social researchers worldwide to present their scholarly works. Organized by a consortium of six Vietnamese universities in collaboration with the Development and Policies Research Center (DEPOCEN).</p><p>Since its founding, VEAM has grown into one of Southeast Asia's premier academic economics conferences, attracting researchers from across the globe.</p><h2>Organizing Institutions</h2><ul><li>University of Economics – Hue University</li><li>Foreign Trade University</li><li>University of Economics – University of Da Nang</li><li>University of Economics Ho Chi Minh City (UEH)</li><li>Thai Nguyen University of Economics &amp; Business Administration</li><li>University of Economics and Law</li></ul><h2>Mission</h2><p>VEAM aims to promote high-quality economic research in Vietnam and Southeast Asia, facilitate knowledge exchange between domestic and international scholars, and provide a platform for emerging researchers to present their work.</p><blockquote>VEAM is a bridge between Vietnamese and international economic research communities.</blockquote>`
       },
+      registration: {
+        heading: 'Registration',
+        content: `<h2>How to Register</h2><p>Registration for VEAM 2026 will open on <strong>June 16, 2026</strong> and close on <strong>June 30, 2026</strong>. All accepted paper authors and attendees must register to participate.</p><h3>Registration Categories</h3><table><thead><tr><th>Category</th><th>Fee</th><th>Includes</th></tr></thead><tbody><tr><td>Faculty / Researcher</td><td>TBA</td><td>All sessions, proceedings, meals</td></tr><tr><td>PhD Student</td><td>TBA (reduced)</td><td>All sessions, proceedings, meals</td></tr><tr><td>Audience / Press</td><td>Free</td><td>Open plenary sessions only</td></tr></tbody></table><h3>Process</h3><ol><li>Receive acceptance notification (by June 15, 2026)</li><li>Complete the online registration form</li><li>Complete payment to confirm your spot</li><li>Receive confirmation and logistics information</li></ol><p>For specific requests email <strong>veam@depocen.org</strong></p>`
+      },
+      submission: {
+        heading: 'Paper Submission',
+        content: `<h2>Call for Papers – VEAM 2026</h2><p>The 17th Vietnam Economists Annual Meeting invites submissions of research papers in all areas of economics and social sciences.</p><h3>Submission Guidelines</h3><ul><li>All papers must be submitted <strong>in English</strong></li><li>Deadline: <strong>May 31, 2026 at 5:00 PM Hanoi time</strong></li><li>Papers should be submitted as PDF files</li><li>Maximum length: 50 pages including references and appendices</li><li>Include an abstract of no more than 250 words</li><li>JEL classification codes required</li></ul><h3>Submit Your Paper</h3><p><a href="https://forms.gle/ATuchs8b8s2d4NTR8" target="_blank" style="display:inline-block;background:var(--navy);color:var(--gold-light);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 24px;border-radius:6px;text-decoration:none;margin-top:8px;">→ Submit Paper via Google Forms</a></p><h3>Topics of Interest</h3><ul><li>Development Economics and Policy</li><li>Behavioral Economics and Experiments</li><li>Environmental and Resource Economics</li><li>Labor Economics and Human Capital</li><li>International Trade and Finance</li><li>Macroeconomics and Monetary Policy</li><li>Vietnam and Southeast Asian Economies</li></ul>`
+      },
       events: [
         { id: 1, title: '17th Vietnam Economists Annual Meeting (VEAM 2026) – Call for Papers', date: '2026-07-13', location: 'Hue, Vietnam', status: 'published', tags: ['Call for Papers', 'Conference'], content: `<h2>Call for Papers – VEAM 2026</h2><p>The <strong>17th Vietnam Economists Annual Meeting (VEAM 2026)</strong> invites submissions from economists and social science researchers worldwide.</p><h3>Conference Details</h3><ul><li><strong>Date:</strong> July 13–14, 2026</li><li><strong>Location:</strong> University of Economics – Hue University, Hue, Vietnam</li><li><strong>Deadline:</strong> May 31, 2026 (5pm Hanoi time)</li></ul><h3>Keynote Speakers</h3><ul><li>Professor Philippe Aghion – London School of Economics</li><li>Professor Thi Kim Cuong PHAM – University of Paris Nanterre</li><li>Professor Maria-Giuseppina BRUNA – IPAG Business School</li></ul><p>All papers must be submitted in English. Acceptance notifications will be sent by June 15, 2026.</p>` },
         { id: 2, title: 'VEAM 2025 Conference Papers Now Available', date: '2025-09-01', location: 'Online Archive', status: 'published', tags: ['Archives', 'Conference Papers'], content: `<h2>VEAM 2025 Conference Papers</h2><p>All papers presented at the 16th Vietnam Economists Annual Meeting are now available in the online archive. Over 120 presentations across 18 parallel sessions.</p>` },
@@ -2835,11 +2840,20 @@
         document.getElementById('page-registration').classList.add('active');
         document.getElementById('nav-reg').classList.add('active');
         document.getElementById('mnav-reg').classList.add('active');
+        // Render from state so edits are reflected
+        const rh = document.getElementById('reg-page-h');
+        const rrc = document.getElementById('reg-page-rc');
+        if (rh) rh.textContent = S.registration.heading;
+        if (rrc) rrc.innerHTML = S.registration.content;
       } else if (page === 'submission') {
         hero.style.display = 'none';
         document.getElementById('page-submission').classList.add('active');
         document.getElementById('nav-sub').classList.add('active');
         document.getElementById('mnav-sub').classList.add('active');
+        const sh = document.getElementById('sub-page-h');
+        const src = document.getElementById('sub-page-rc');
+        if (sh) sh.textContent = S.submission.heading;
+        if (src) src.innerHTML = S.submission.content;
       } else if (page === 'evdet') {
         hero.style.display = 'none';
         document.getElementById('page-evdet').classList.add('active');
@@ -2853,7 +2867,7 @@
         } else {
           document.getElementById('admin-login').style.display = 'none';
           document.getElementById('admin-dash').style.display = 'block';
-          renderAboutPrev(); renderEvAdminList();
+          renderAboutPrev(); renderRegPrev(); renderSubPrev(); renderEvAdminList();
         }
       } else if (page === 'editor') {
         hero.style.display = 'none';
@@ -2867,11 +2881,19 @@
     }
 
     // ══════════════════════════════════════════════════════════
-    // ABOUT
+    // ABOUT / REG / SUB PREVIEWS
     // ══════════════════════════════════════════════════════════
     function renderAboutPrev() {
       document.getElementById('about-prev-h').textContent = S.about.heading;
       document.getElementById('about-prev-rc').innerHTML = S.about.content;
+    }
+    function renderRegPrev() {
+      document.getElementById('reg-prev-h').textContent = S.registration.heading;
+      document.getElementById('reg-prev-rc').innerHTML = S.registration.content;
+    }
+    function renderSubPrev() {
+      document.getElementById('sub-prev-h').textContent = S.submission.heading;
+      document.getElementById('sub-prev-rc').innerHTML = S.submission.content;
     }
 
     // ══════════════════════════════════════════════════════════
@@ -2937,8 +2959,13 @@
       S.aTab = tab;
       document.querySelectorAll('.a-nav').forEach(el => el.classList.remove('active'));
       const btn = document.getElementById('anav-' + tab); if (btn) btn.classList.add('active');
-      ['about', 'events'].forEach(t => { const el = document.getElementById('atab-' + t); if (el) el.style.display = t === tab ? 'block' : 'none'; });
+      ['about', 'registration', 'submission', 'events'].forEach(t => {
+        const el = document.getElementById('atab-' + t);
+        if (el) el.style.display = t === tab ? 'block' : 'none';
+      });
       if (tab === 'about') renderAboutPrev();
+      if (tab === 'registration') renderRegPrev();
+      if (tab === 'submission') renderSubPrev();
       if (tab === 'events') renderEvAdminList();
     }
 
@@ -2955,18 +2982,24 @@
     function openEditor(mode, evId) {
       S.edMode = mode; S.edEvId = evId;
       nav('editor');
-      const back = () => { nav('admin'); aTab(mode === 'about' ? 'about' : 'events'); };
+
+      // Determine which admin tab to go back to
+      const backTab = (mode === 'about') ? 'about' : (mode === 'registration') ? 'registration' : (mode === 'submission') ? 'submission' : 'events';
+      const back = () => { nav('admin'); aTab(backTab); };
       document.getElementById('ep-back-btn').onclick = back;
       document.getElementById('ep-cancel-btn').onclick = back;
-      document.getElementById('ep-save-btn').onclick = mode === 'about' ? saveAbout : saveEvent;
 
-      if (mode === 'about') {
-        document.getElementById('ep-title').textContent = 'Edit About Page';
+      if (mode === 'about' || mode === 'registration' || mode === 'submission') {
+        const pageData = S[mode];
+        const pageLabels = { about: 'Edit About Page', registration: 'Edit Registration Page', submission: 'Edit Paper Submission Page' };
+        document.getElementById('ep-title').textContent = pageLabels[mode];
         document.getElementById('ep-about-fields').style.display = 'block';
         document.getElementById('ep-event-fields').style.display = 'none';
-        document.getElementById('about-inp-h').value = S.about.heading;
-        document.getElementById('ep-editor').innerHTML = S.about.content;
+        document.getElementById('about-inp-h').value = pageData.heading;
+        document.getElementById('ep-editor').innerHTML = pageData.content;
+        document.getElementById('ep-save-btn').onclick = () => savePageContent(mode);
       } else {
+        document.getElementById('ep-save-btn').onclick = saveEvent;
         document.getElementById('ep-title').textContent = evId ? 'Edit Event' : 'New Event';
         document.getElementById('ep-about-fields').style.display = 'none';
         document.getElementById('ep-event-fields').style.display = 'block';
@@ -2987,12 +3020,22 @@
       buildToolbar('ep-toolbar', 'ep-editor');
     }
 
-    function saveAbout() {
-      S.about.heading = document.getElementById('about-inp-h').value.trim() || 'About VEAM';
-      S.about.content = document.getElementById('ep-editor').innerHTML;
-      toast('About page saved!');
-      nav('admin'); aTab('about');
+    // Generic save for About / Registration / Submission pages
+    function savePageContent(mode) {
+      const defaultHeadings = { about: 'About VEAM', registration: 'Registration', submission: 'Paper Submission' };
+      S[mode].heading = document.getElementById('about-inp-h').value.trim() || defaultHeadings[mode];
+      S[mode].content = document.getElementById('ep-editor').innerHTML;
+      // Sync to the live public page
+      if (mode === 'about') {
+        const h = document.getElementById('about-h'); if (h) h.textContent = S.about.heading;
+        const rc = document.getElementById('about-rc'); if (rc) rc.innerHTML = S.about.content;
+      }
+      toast((mode.charAt(0).toUpperCase() + mode.slice(1)) + ' page saved!');
+      nav('admin'); aTab(mode);
     }
+
+    // Keep saveAbout as alias for compatibility
+    function saveAbout() { savePageContent('about'); }
 
     function saveEvent() {
       const title = document.getElementById('ev-inp-title').value.trim();
@@ -3293,55 +3336,78 @@
     // ── LINK PANEL ──────────────────────────────────────────────────────────
     function makeLinkPanel(id, edId) {
       const d = document.createElement('div'); d.id = id; d.className = 'fpanel'; d.style.width = '290px';
-      d.innerHTML = `<div class="fpanel-title">Insert Link <button id="${id}-x">✕</button></div>
-<input class="fp-inp" id="${id}-url" type="text" placeholder="https://"/>
-<input class="fp-inp" id="${id}-txt" type="text" placeholder="Display text (optional)"/>
-<div class="fp-row"><button class="btn btn-secondary" id="${id}-cancel" style="font-size:12px;padding:5px 11px;">Cancel</button><button class="btn btn-primary" id="${id}-ok" style="font-size:12px;padding:5px 11px;">Insert</button></div>`;
-      requestAnimationFrame(() => {
-        const close = () => d.classList.remove('open');
-        document.getElementById(id + '-x').onmousedown = e => { e.preventDefault(); close(); };
-        document.getElementById(id + '-cancel').onmousedown = e => { e.preventDefault(); close(); };
-        document.getElementById(id + '-ok').onmousedown = e => {
-          e.preventDefault();
-          const url = document.getElementById(id + '-url').value.trim();
-          const txt = document.getElementById(id + '-txt').value.trim();
-          if (!url) return;
-          if (txt) insertHTML(`<a href="${url}" target="_blank">${txt}</a>`);
-          else { document.getElementById(_edId).focus(); if (_range) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(_range); } document.execCommand('createLink', false, url); }
-          close();
-        };
-      });
+
+      // Build DOM directly – no innerHTML + getElementById timing issues
+      const title = document.createElement('div'); title.className = 'fpanel-title';
+      const titleTxt = document.createElement('span'); titleTxt.textContent = 'Insert Link';
+      const xBtn = document.createElement('button'); xBtn.textContent = '✕'; xBtn.type = 'button';
+      title.appendChild(titleTxt); title.appendChild(xBtn);
+
+      const urlInp = document.createElement('input'); urlInp.className = 'fp-inp'; urlInp.type = 'text'; urlInp.placeholder = 'https://';
+      const txtInp = document.createElement('input'); txtInp.className = 'fp-inp'; txtInp.type = 'text'; txtInp.placeholder = 'Display text (optional)';
+
+      const row = document.createElement('div'); row.className = 'fp-row';
+      const cancelBtn = document.createElement('button'); cancelBtn.className = 'btn btn-secondary'; cancelBtn.type = 'button'; cancelBtn.textContent = 'Cancel'; cancelBtn.style.cssText = 'font-size:12px;padding:5px 11px;';
+      const okBtn = document.createElement('button'); okBtn.className = 'btn btn-primary'; okBtn.type = 'button'; okBtn.textContent = 'Insert'; okBtn.style.cssText = 'font-size:12px;padding:5px 11px;';
+      row.appendChild(cancelBtn); row.appendChild(okBtn);
+
+      d.appendChild(title); d.appendChild(urlInp); d.appendChild(txtInp); d.appendChild(row);
+
+      const close = () => d.classList.remove('open');
+      xBtn.onmousedown = e => { e.preventDefault(); close(); };
+      cancelBtn.onmousedown = e => { e.preventDefault(); close(); };
+      // Also handle click so touch devices work
+      xBtn.onclick = close;
+      cancelBtn.onclick = close;
+
+      okBtn.onmousedown = e => {
+        e.preventDefault();
+        const url = urlInp.value.trim();
+        const txt = txtInp.value.trim();
+        if (!url) return;
+        if (txt) insertHTML(`<a href="${url}" target="_blank">${txt}</a>`);
+        else { document.getElementById(_edId).focus(); if (_range) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(_range); } document.execCommand('createLink', false, url); }
+        close();
+      };
       return d;
     }
 
     // ── IMAGE PANEL ──────────────────────────────────────────────────────────
     function makeImgPanel(id, edId) {
       const d = document.createElement('div'); d.id = id; d.className = 'fpanel'; d.style.cssText = 'width:320px;max-height:460px;overflow-y:auto;';
-      d.innerHTML = `<div class="fpanel-title">Insert Image <button id="${id}-x">✕</button></div>
-<div class="uzone" id="${id}-zone">📁 Click or drag &amp; drop images</div>
-<input type="file" id="${id}-file" accept="image/*" multiple style="display:none"/>
-<div class="img-thumbs" id="${id}-thumbs"></div>
-<div class="or-line">or paste URL</div>
-<input class="fp-inp" id="${id}-url" type="text" placeholder="https://example.com/image.jpg"/>
-<div class="fp-row"><button class="btn btn-primary" id="${id}-urlok" style="font-size:12px;padding:5px 11px;">Insert URL</button></div>`;
-      requestAnimationFrame(() => {
-        const close = () => d.classList.remove('open');
-        document.getElementById(id + '-x').onmousedown = e => { e.preventDefault(); close(); };
-        const zone = document.getElementById(id + '-zone');
-        const filein = document.getElementById(id + '-file');
-        const thumbs = document.getElementById(id + '-thumbs');
-        zone.onclick = () => filein.click();
-        zone.ondragover = e => { e.preventDefault(); zone.style.borderColor = 'var(--navy)'; };
-        zone.ondragleave = () => { zone.style.borderColor = ''; };
-        zone.ondrop = e => { e.preventDefault(); zone.style.borderColor = ''; Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach(f => readImg(f, thumbs, close)); };
-        filein.onchange = e => Array.from(e.target.files).forEach(f => readImg(f, thumbs, close));
-        document.getElementById(id + '-urlok').onmousedown = e => {
-          e.preventDefault();
-          const url = document.getElementById(id + '-url').value.trim(); if (!url) return;
-          insertHTML(`<img src="${url}" alt="" style="max-width:100%;height:auto;border-radius:4px;margin:8px 0;display:block;"/><p><br></p>`);
-          close();
-        };
-      });
+
+      const title = document.createElement('div'); title.className = 'fpanel-title';
+      const titleTxt = document.createElement('span'); titleTxt.textContent = 'Insert Image';
+      const xBtn = document.createElement('button'); xBtn.textContent = '✕'; xBtn.type = 'button';
+      title.appendChild(titleTxt); title.appendChild(xBtn);
+
+      const zone = document.createElement('div'); zone.className = 'uzone'; zone.innerHTML = '📁 Click or drag &amp; drop images';
+      const fileIn = document.createElement('input'); fileIn.type = 'file'; fileIn.accept = 'image/*'; fileIn.multiple = true; fileIn.style.display = 'none';
+      const thumbs = document.createElement('div'); thumbs.className = 'img-thumbs';
+      const orLine = document.createElement('div'); orLine.className = 'or-line'; orLine.textContent = 'or paste URL';
+      const urlInp = document.createElement('input'); urlInp.className = 'fp-inp'; urlInp.type = 'text'; urlInp.placeholder = 'https://example.com/image.jpg';
+      const row = document.createElement('div'); row.className = 'fp-row';
+      const urlOk = document.createElement('button'); urlOk.className = 'btn btn-primary'; urlOk.type = 'button'; urlOk.textContent = 'Insert URL'; urlOk.style.cssText = 'font-size:12px;padding:5px 11px;';
+      row.appendChild(urlOk);
+
+      d.appendChild(title); d.appendChild(zone); d.appendChild(fileIn); d.appendChild(thumbs); d.appendChild(orLine); d.appendChild(urlInp); d.appendChild(row);
+
+      const close = () => d.classList.remove('open');
+      xBtn.onmousedown = e => { e.preventDefault(); close(); };
+      xBtn.onclick = close;
+
+      zone.onclick = () => fileIn.click();
+      zone.ondragover = e => { e.preventDefault(); zone.style.borderColor = 'var(--navy)'; };
+      zone.ondragleave = () => { zone.style.borderColor = ''; };
+      zone.ondrop = e => { e.preventDefault(); zone.style.borderColor = ''; Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach(f => readImg(f, thumbs, close)); };
+      fileIn.onchange = e => Array.from(e.target.files).forEach(f => readImg(f, thumbs, close));
+
+      urlOk.onmousedown = e => {
+        e.preventDefault();
+        const url = urlInp.value.trim(); if (!url) return;
+        insertHTML(`<img src="${url}" alt="" style="max-width:100%;height:auto;border-radius:4px;margin:8px 0;display:block;"/><p><br></p>`);
+        close();
+      };
       return d;
     }
 
@@ -3362,60 +3428,60 @@
     }
 
     // ── YOUTUBE PANEL ──────────────────────────────────────────────────────────
-    // FIX: Use responsive wrapper div + correct embed URL format
     function makeYtPanel(id, edId) {
       const d = document.createElement('div'); d.id = id; d.className = 'fpanel'; d.style.width = '300px';
-      d.innerHTML = `<div class="fpanel-title">Embed YouTube <button id="${id}-x">✕</button></div>
-<input class="fp-inp" id="${id}-url" type="text" placeholder="YouTube URL or video ID"/>
-<select class="fp-inp" id="${id}-w" style="margin-bottom:8px;">
-  <option value="responsive">Responsive (recommended)</option>
-  <option value="560">Fixed 560px</option>
-  <option value="640">Fixed 640px</option>
-</select>
-<div class="fp-row">
-  <button class="btn btn-secondary" id="${id}-cancel" style="font-size:12px;padding:5px 11px;">Cancel</button>
-  <button class="btn btn-primary" id="${id}-ok" style="font-size:12px;padding:5px 11px;">Embed</button>
-</div>`;
-      requestAnimationFrame(() => {
-        const close = () => d.classList.remove('open');
-        document.getElementById(id + '-x').onmousedown = e => { e.preventDefault(); close(); };
-        document.getElementById(id + '-cancel').onmousedown = e => { e.preventDefault(); close(); };
-        document.getElementById(id + '-ok').onmousedown = e => {
-          e.preventDefault();
-          const raw = document.getElementById(id + '-url').value.trim(); if (!raw) return;
-          const mode = document.getElementById(id + '-w').value;
 
-          // Extract video ID from any YouTube URL format
-          let vid = raw;
-          const patterns = [
-            /[?&]v=([a-zA-Z0-9_-]{11})/,
-            /youtu\.be\/([a-zA-Z0-9_-]{11})/,
-            /embed\/([a-zA-Z0-9_-]{11})/,
-            /shorts\/([a-zA-Z0-9_-]{11})/,
-            /^([a-zA-Z0-9_-]{11})$/
-          ];
-          for (const p of patterns) {
-            const m = raw.match(p);
-            if (m) { vid = m[1]; break; }
-          }
-          vid = vid.trim();
+      const title = document.createElement('div'); title.className = 'fpanel-title';
+      const titleTxt = document.createElement('span'); titleTxt.textContent = 'Embed YouTube';
+      const xBtn = document.createElement('button'); xBtn.textContent = '✕'; xBtn.type = 'button';
+      title.appendChild(titleTxt); title.appendChild(xBtn);
 
-          // Build embed URL – use youtube.com (not nocookie) with proper params
-          // The key fix: add enablejsapi=0, origin not needed for non-API use
-          const embedUrl = `https://www.youtube.com/embed/${vid}?rel=0`;
-
-          let html;
-          if (mode === 'responsive') {
-            // Responsive 16:9 wrapper – works everywhere without fixed dimensions
-            html = `<div class="yt-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:12px 0;"><iframe src="${embedUrl}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:6px;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div><p><br></p>`;
-          } else {
-            const w = parseInt(mode);
-            html = `<div style="margin:12px 0;max-width:100%;"><iframe width="${w}" height="${Math.round(w * 9 / 16)}" src="${embedUrl}" style="max-width:100%;border-radius:6px;display:block;border:0;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div><p><br></p>`;
-          }
-          insertHTML(html);
-          close();
-        };
+      const urlInp = document.createElement('input'); urlInp.className = 'fp-inp'; urlInp.type = 'text'; urlInp.placeholder = 'YouTube URL or video ID';
+      const widthSel = document.createElement('select'); widthSel.className = 'fp-inp'; widthSel.style.marginBottom = '8px';
+      [['responsive', 'Responsive (recommended)'], ['560', 'Fixed 560px'], ['640', 'Fixed 640px']].forEach(([v, l]) => {
+        const o = document.createElement('option'); o.value = v; o.textContent = l; widthSel.appendChild(o);
       });
+
+      const row = document.createElement('div'); row.className = 'fp-row';
+      const cancelBtn = document.createElement('button'); cancelBtn.className = 'btn btn-secondary'; cancelBtn.type = 'button'; cancelBtn.textContent = 'Cancel'; cancelBtn.style.cssText = 'font-size:12px;padding:5px 11px;';
+      const okBtn = document.createElement('button'); okBtn.className = 'btn btn-primary'; okBtn.type = 'button'; okBtn.textContent = 'Embed'; okBtn.style.cssText = 'font-size:12px;padding:5px 11px;';
+      row.appendChild(cancelBtn); row.appendChild(okBtn);
+
+      d.appendChild(title); d.appendChild(urlInp); d.appendChild(widthSel); d.appendChild(row);
+
+      const close = () => d.classList.remove('open');
+      xBtn.onmousedown = e => { e.preventDefault(); close(); };
+      xBtn.onclick = close;
+      cancelBtn.onmousedown = e => { e.preventDefault(); close(); };
+      cancelBtn.onclick = close;
+
+      okBtn.onmousedown = e => {
+        e.preventDefault();
+        const raw = urlInp.value.trim(); if (!raw) return;
+        const mode = widthSel.value;
+
+        let vid = raw;
+        const patterns = [
+          /[?&]v=([a-zA-Z0-9_-]{11})/,
+          /youtu\.be\/([a-zA-Z0-9_-]{11})/,
+          /embed\/([a-zA-Z0-9_-]{11})/,
+          /shorts\/([a-zA-Z0-9_-]{11})/,
+          /^([a-zA-Z0-9_-]{11})$/
+        ];
+        for (const p of patterns) { const m = raw.match(p); if (m) { vid = m[1]; break; } }
+        vid = vid.trim();
+
+        const embedUrl = `https://www.youtube.com/embed/${vid}?rel=0`;
+        let html;
+        if (mode === 'responsive') {
+          html = `<div class="yt-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:12px 0;"><iframe src="${embedUrl}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:6px;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div><p><br></p>`;
+        } else {
+          const w = parseInt(mode);
+          html = `<div style="margin:12px 0;max-width:100%;"><iframe width="${w}" height="${Math.round(w * 9 / 16)}" src="${embedUrl}" style="max-width:100%;border-radius:6px;display:block;border:0;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe></div><p><br></p>`;
+        }
+        insertHTML(html);
+        close();
+      };
       return d;
     }
 
