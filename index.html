@@ -1902,22 +1902,92 @@
       opacity: 1;
     }
 
+
+    /* ─── MOBILE ADMIN TAB BAR ─── */
+    .admin-mob-bar {
+      display: none;
+      background: var(--navy);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .admin-mob-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .admin-mob-bar-inner {
+      display: flex;
+      min-width: max-content;
+      padding: 0 4px;
+    }
+
+    .amb-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 11px 13px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #8fa5c8;
+      white-space: nowrap;
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      transition: all .15s;
+      flex-shrink: 0;
+    }
+
+    .amb-btn svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    .amb-btn:hover {
+      color: white;
+    }
+
+    .amb-btn.active {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold);
+    }
+
+    .amb-logout {
+      color: #5a7aaa;
+      border-left: 1px solid rgba(255, 255, 255, .08);
+      margin-left: 2px;
+    }
+
     /* ─── RESPONSIVE ─── */
     @media(max-width:900px) {
       .page-body {
         grid-template-columns: 1fr;
       }
 
+      .page-body.admin-pb {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      /* Admin: sidebar hidden, replaced by top tab bar */
       .admin-layout {
-        grid-template-columns: 1fr;
+        display: block;
       }
 
       .admin-sidebar {
-        display: none;
+        display: none !important;
       }
 
-      .admin-sidebar.mob-open {
+      .admin-mob-bar {
         display: block;
+      }
+
+      .admin-main {
+        padding: 20px 16px;
       }
 
       #footer .fg {
@@ -1934,6 +2004,68 @@
 
       .home-strip .inner {
         gap: 20px;
+      }
+
+      .a-hdr {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .a-hdr h2 {
+        font-size: 18px;
+      }
+
+      /* Card-style event rows instead of table */
+      .a-tbl-wrap {
+        overflow: visible;
+        border: none;
+        background: transparent;
+      }
+
+      .a-tbl {
+        min-width: 0;
+      }
+
+      .a-tbl thead {
+        display: none;
+      }
+
+      .a-tbl,
+      .a-tbl tbody,
+      .a-tbl tr,
+      .a-tbl td {
+        display: block;
+        width: 100%;
+      }
+
+      .a-tbl tr {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-bottom: 8px;
+        position: relative;
+      }
+
+      .a-tbl td {
+        padding: 2px 0;
+        border: none;
+        font-size: 13px;
+      }
+
+      .a-tbl td:first-child {
+        font-weight: 600;
+        color: var(--navy);
+        font-size: 14px;
+        padding-bottom: 6px;
+        padding-right: 100px;
+      }
+
+      .a-tbl td:last-child {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: auto;
       }
     }
 
@@ -2024,6 +2156,17 @@
       .a-tbl td {
         padding: 9px 10px;
         font-size: 12px;
+      }
+
+      /* Admin mobile */
+      .a-card {
+        padding: 16px;
+      }
+
+      .amb-btn {
+        padding: 10px 11px;
+        font-size: 11px;
+        gap: 4px;
       }
     }
 
@@ -2435,7 +2578,8 @@
         <div class="sidebar-widget">
           <h3>Contact</h3>
           <ul>
-            <li><a>veam@depocen.org</a></li>
+            <li><a><span class="__cf_email__"
+                  data-cfemail="fe889b9f93be9a9b8e919d9b90d0918c99">[email&#160;protected]</span></a></li>
             <li><a>(84 24) 39351419</a></li>
           </ul>
         </div>
@@ -2540,6 +2684,45 @@
       </div>
     </div>
     <div id="admin-dash" style="display:none;">
+      <!-- MOBILE ADMIN TAB BAR (visible below 900px) -->
+      <div class="admin-mob-bar" id="admin-mob-bar">
+        <div class="admin-mob-bar-inner">
+          <button class="amb-btn active" id="amb-about" onclick="aTab('about')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>About
+          </button>
+          <button class="amb-btn" id="amb-registration" onclick="aTab('registration')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+            </svg>Registration
+          </button>
+          <button class="amb-btn" id="amb-submission" onclick="aTab('submission')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>Submission
+          </button>
+          <button class="amb-btn" id="amb-events" onclick="aTab('events')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>Events
+          </button>
+          <button class="amb-btn amb-logout" onclick="doLogout()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>Logout
+          </button>
+        </div>
+      </div>
       <div class="admin-layout">
         <div class="admin-sidebar">
           <div style="padding:0 20px 18px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px;">
@@ -2728,6 +2911,7 @@
 
   <div id="toast"></div>
 
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
     // ══════════════════════════════════════════════════════════
@@ -2957,8 +3141,13 @@
     // ══════════════════════════════════════════════════════════
     function aTab(tab) {
       S.aTab = tab;
+      // Sync desktop sidebar
       document.querySelectorAll('.a-nav').forEach(el => el.classList.remove('active'));
       const btn = document.getElementById('anav-' + tab); if (btn) btn.classList.add('active');
+      // Sync mobile tab bar
+      document.querySelectorAll('.amb-btn').forEach(el => el.classList.remove('active'));
+      const mbtn = document.getElementById('amb-' + tab); if (mbtn) mbtn.classList.add('active');
+      // Show correct tab content
       ['about', 'registration', 'submission', 'events'].forEach(t => {
         const el = document.getElementById('atab-' + t);
         if (el) el.style.display = t === tab ? 'block' : 'none';
@@ -2967,6 +3156,12 @@
       if (tab === 'registration') renderRegPrev();
       if (tab === 'submission') renderSubPrev();
       if (tab === 'events') renderEvAdminList();
+      // On mobile: scroll the tab bar so the active button is visible
+      const mobBar = document.getElementById('admin-mob-bar');
+      if (mobBar) {
+        const mbtnEl = document.getElementById('amb-' + tab);
+        if (mbtnEl) { setTimeout(() => mbtnEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }), 50); }
+      }
     }
 
     function doLogin() {
@@ -3491,6 +3686,8 @@
     function stripHtml(html) { const t = document.createElement('div'); t.innerHTML = html; return t.textContent || ''; }
     function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2800); }
 
+    // ══════════════════════════════════════════════════════════
+    // INIT
     // ══════════════════════════════════════════════════════════
     // INIT
     // ══════════════════════════════════════════════════════════
